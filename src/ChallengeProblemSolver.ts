@@ -1,5 +1,5 @@
 export class ChallengeProblemSolver {
-  solveProblem(input: Array<number>) {
+  solveProblem(_: Array<number>) {
     return 4;
   }
 }
