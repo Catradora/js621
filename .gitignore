@@ -3,3 +3,4 @@ skip.txt
 
 #Directories
 dist/
+.nyc_output/

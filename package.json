@@ -8,8 +8,9 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
-    "test_nyc": "nyc mocha 'dist/test/*.test.js'",
-    "test": "mocha ts-node/register --experimental-modules 'src/test/*.test.ts'"
+    "test_nyc": "nyc ts-mocha 'src/test/*.test.ts'",
+    "test": "ts-mocha 'src/test/*.test.ts'",
+    "test_watch": "ts-mocha -w 'src/test/*.test.ts'"
   },
   "repository": {
     "type": "git",
