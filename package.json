@@ -7,8 +7,8 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
-    "test_nyc": "nyc mocha 'dist/*.test.js'",
-    "test": "mocha 'dist/*.test.js'"
+    "test_nyc": "nyc mocha 'dist/test/*.test.js'",
+    "test": "mocha 'dist/test/*.test.js'"
   },
   "repository": {
     "type": "git",

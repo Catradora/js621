@@ -1,4 +1,4 @@
-import { ChallengeProblemSolver } from "./ChallengeProblemSolver";
+import { ChallengeProblemSolver } from "../ChallengeProblemSolver";
 import { expect } from "chai";
 
 describe("ChallengeProblemSolver.solveProblem", () => {
