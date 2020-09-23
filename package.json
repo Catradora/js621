@@ -1,0 +1,30 @@
+{
+  "name": "js621",
+  "version": "1.0.0",
+  "description": "A TypeScript wrapper for the e621.net API",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon dist/index.js",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Catradora/js621.git"
+  },
+  "keywords": [
+    "API",
+    "Wrapper",
+    "e621.net",
+    "furry"
+  ],
+  "author": "Catradora",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Catradora/js621/issues"
+  },
+  "homepage": "https://github.com/Catradora/js621#readme",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  }
+}
