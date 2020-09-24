@@ -1,7 +1,8 @@
 import Bottleneck from "bottleneck";
+import { Posts } from "./models/posts";
 
 export class JS621 {
-  public models = {};
+  public posts: Posts;
 
   private stateInfo = {};
   private rateLimiter: Bottleneck;
