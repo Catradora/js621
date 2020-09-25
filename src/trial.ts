@@ -1,10 +1,21 @@
-import { JS621 } from "./index";
+import { Model } from "./models/model";
+import Bottleneck from "bottleneck";
 
-let js621: JS621 = new JS621("hood.noah@gmail.com | JS621 Dev");
+const stateInfo = {
+  rateLimiter: new Bottleneck({
+    mintime: 1000,
+    maxConcurrent: 1,
+  }),
+  userAgent: "hood.noah@gmail.com | JS621 Dev",
+  username: "pye621Dev",
+  api_key: "67d73dd26774e29e8c41a6924053e7e8",
+};
+
+let modelObj: Model = new Model(stateInfo);
 
 async function makeRequest() {
   try {
-    let response = await js621.posts.submit_throttled_request(
+    let response = await modelObj.submit_throttled_request(
       "https://www.e621.net/posts.json?",
       "get"
     );
