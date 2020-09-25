@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "A TypeScript wrapper for the e621.net API",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
     "test_nyc": "nyc ts-mocha 'src/test/*.test.ts'",
     "test": "ts-mocha 'src/test/*.test.ts'",
-    "test_watch": "ts-mocha -w 'src/test/*.test.ts'"
+    "test_watch": "ts-mocha -w 'src/test/*.test.ts'",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

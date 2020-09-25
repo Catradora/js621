@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { StateInfo } from "./stateinfo";
+import { StateInfo, Method } from "./interfaces";
 
 export class Model {
   public stateInfo: StateInfo;
@@ -14,20 +14,7 @@ export class Model {
     this.stateInfo = stateInfo;
   }
 
-  private async submit_request(
-    query_url: string,
-    method:
-      | "get"
-      | "GET"
-      | "delete"
-      | "DELETE"
-      | "post"
-      | "POST"
-      | "put"
-      | "PUT"
-      | "patch"
-      | "PATCH"
-  ) {
+  private async submit_request(query_url: string, method: Method) {
     if (this.stateInfo.username && this.stateInfo.api_key) {
       const axiosConfig: AxiosRequestConfig = {
         method: method,

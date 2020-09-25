@@ -1,6 +1,6 @@
 import Bottleneck from "bottleneck";
 import { Posts } from "./models/posts";
-import { StateInfo } from "./models/stateinfo";
+import { StateInfo } from "./models/interfaces";
 
 export class JS621 {
   public posts: Posts;
@@ -21,14 +21,19 @@ export class JS621 {
     if (api_key) this.api_key = api_key;
 
     this.update_state_info();
+    this.setup_models();
   }
 
-  update_state_info() {
+  private update_state_info() {
     this.stateInfo = {
       rateLimiter: this.rateLimiter,
       userAgent: this.userAgent,
       username: this.username,
       api_key: this.api_key,
     };
+  }
+
+  private setup_models() {
+    this.posts = new Posts(this.stateInfo);
   }
 }
