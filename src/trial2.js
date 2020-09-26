@@ -9,10 +9,10 @@ async function sendRequest() {
   });
 }
 
-const limiter = new Bottleneck({ minTime: 2000, maxConcurrent: 1 });
+const limiter = new Bottleneck({ minTime: 1000 }); //, maxConcurrent: 1 });
 
 async function getData() {
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i < 20; i++) {
     result = await limiter.schedule(sendRequest);
     console.log(result.data.posts[0].id + "|" + Date.now());
   }
