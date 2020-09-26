@@ -1,5 +1,3 @@
-import Bottleneck from "bottleneck";
-
 export interface StateInfo {
   userAgent: string;
   username?: string;
