@@ -1,6 +1,5 @@
 import { Model } from "./models/model";
 import Bottleneck from "bottleneck";
-import { ChallengeProblemSolver } from "./ChallengeProblemSolver";
 
 const limiter: Bottleneck = new Bottleneck({ mintime: 1000, maxconcurrent: 1 });
 
@@ -14,22 +13,19 @@ const stateInfo = {
 let modelObj: Model = new Model(stateInfo);
 
 async function makeRequest(url: string) {
-  try {
-    let response = await modelObj.submit_request(url, "get");
+  return modelObj.submit_request(url, "get");
+}
+
+async function getRequests() {
+  const wrappedRequest = limiter.wrap(makeRequest);
+
+  for (let i = 0; i < 10; i++) {
+    let response = await wrappedRequest(
+      "https://www.e621.net/posts.json?limit=1"
+    );
     console.log(response.data.posts[0].id + "|" + Date.now());
-    //console.log(Date.now());
-  } catch (err) {
-    console.log(err);
+
+    //console.log(response.data.posts[0].id + "|" + Date.now());
   }
 }
-
-const wrappedRequest = limiter.wrap(makeRequest);
-
-let start = new Date();
-for (let i = 0; i < 2; i++) {
-  let result = wrappedRequest("https://www.e621.net/posts.json?limit=1");
-  console.log(result.data.posts[0].id + "|" + Date.now());
-}
-let end = new Date();
-let timeDifferenceSeconds = (end.getTime() - start.getTime()) / 1000;
-console.log(timeDifferenceSeconds);
+getRequests();
