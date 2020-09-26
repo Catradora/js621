@@ -37,12 +37,4 @@ export class Model {
       return this.modelLimiter.schedule(() => axios(axiosConfig));
     }
   };
-
-  // public submit_throttled_request = (url: string, method: Method) => {
-  //   return this.stateInfo.rateLimiter.schedule(
-  //     this.submit_request,
-  //     url,
-  //     method
-  //   );
-  // };
 }
