@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import Bottleneck from "bottleneck";
 import { StateInfo, Method } from "./interfaces";
 
 export class Model {
@@ -10,8 +11,10 @@ export class Model {
     this.stateInfo = stateInfo;
   }
 
+  private modelLimiter: Bottleneck = new Bottleneck({ minTime: 1000 });
+
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
-  public submit_request = (query_url: string, method: Method) => {
+  public submit_request = async (query_url: string, method: Method) => {
     if (this.stateInfo.username && this.stateInfo.api_key) {
       const axiosConfig: AxiosRequestConfig = {
         method: method,
@@ -22,7 +25,8 @@ export class Model {
           password: this.stateInfo.api_key,
         },
       };
-      return axios(axiosConfig);
+      //const result = await limiter.schedule(() => myFunction(arg1, arg2));
+      return this.modelLimiter.schedule(() => axios(axiosConfig));
     } else {
       const axiosConfig: AxiosRequestConfig = {
         method: "get",
@@ -30,7 +34,7 @@ export class Model {
         headers: { "User-Agent": this.stateInfo.userAgent },
       };
 
-      return axios(axiosConfig);
+      return this.modelLimiter.schedule(() => axios(axiosConfig));
     }
   };
 

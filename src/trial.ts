@@ -2,7 +2,7 @@ import { Model } from "./models/model";
 import Bottleneck from "bottleneck";
 
 const limiter: Bottleneck = new Bottleneck({
-  mintime: 12000,
+  mintime: 1000,
   maxconcurrent: 1,
 });
 
@@ -15,20 +15,17 @@ const stateInfo = {
 
 let modelObj: Model = new Model(stateInfo);
 
-async function makeRequest(url: string) {
-  return modelObj.submit_request(url, "get");
-}
-
-async function getRequests() {
-  //const wrappedRequest = limiter.wrap(makeRequest);
-
+async function makeRequests() {
   for (let i = 0; i < 10; i++) {
-    const response = await limiter.schedule(() =>
-      makeRequest("https://www.e621.net/posts.json?limit=1")
-    );
-    console.log(response.data.posts[0].id + "|" + Date.now());
-
-    //console.log(response.data.posts[0].id + "|" + Date.now());
+    try {
+      let result = await modelObj.submit_request(
+        "https://www.e621.net/posts.json?limit=1",
+        "get"
+      );
+      console.log(result.data.posts[0].id + "|" + Date.now());
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
-getRequests();
+makeRequests();
