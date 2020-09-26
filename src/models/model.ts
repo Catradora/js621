@@ -4,13 +4,13 @@ import { StateInfo, Method } from "./interfaces";
 
 export class Model {
   public stateInfo: StateInfo;
+  private modelLimiter: Bottleneck;
 
   constructor(stateInfo: StateInfo) {
     // Preserve rate limiter, user agent, etc.
     this.stateInfo = stateInfo;
+    this.modelLimiter = new Bottleneck({ minTime: 1000 });
   }
-
-  private modelLimiter: Bottleneck = new Bottleneck({ minTime: 1000 });
 
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
   public submit_request = async (query_url: string, method: Method) => {
