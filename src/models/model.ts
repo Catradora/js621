@@ -1,15 +1,16 @@
 import axios, { AxiosRequestConfig } from "axios";
-import Bottleneck from "bottleneck";
+//import Bottleneck from "bottleneck";
 import { StateInfo, Method } from "./interfaces";
 
 export class Model {
   public stateInfo: StateInfo;
-  private modelLimiter: Bottleneck;
+  //private modelLimiter: Bottleneck;
 
   constructor(stateInfo: StateInfo) {
     // Preserve rate limiter, user agent, etc.
     this.stateInfo = stateInfo;
-    this.modelLimiter = new Bottleneck({ minTime: 1000 });
+    //this.modelLimiter = new Bottleneck({ minTime: 1000 });
+    //this.modelLimiter = this.stateInfo.ratelimiter;
   }
 
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
@@ -24,14 +25,14 @@ export class Model {
           password: this.stateInfo.api_key,
         },
       };
-      return this.modelLimiter.schedule(() => axios(axiosConfig));
+      return this.stateInfo.ratelimiter.schedule(() => axios(axiosConfig));
     } else {
       const axiosConfig: AxiosRequestConfig = {
         method: "get",
         url: query_url,
         headers: { "User-Agent": this.stateInfo.userAgent },
       };
-      return this.modelLimiter.schedule(() => axios(axiosConfig));
+      return this.stateInfo.ratelimiter.schedule(() => axios(axiosConfig));
     }
   };
 }

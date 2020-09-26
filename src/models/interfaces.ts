@@ -1,4 +1,7 @@
+import Bottleneck from "bottleneck";
+
 export interface StateInfo {
+  ratelimiter: Bottleneck;
   userAgent: string;
   username?: string;
   api_key?: string;
