@@ -1,15 +1,20 @@
-import { Posts } from "./models/posts";
-import { StateInfo } from "./models/interfaces";
+// node_modules
 import Bottleneck from "bottleneck";
+
+// typing helpers
+import { StateInfo } from "./models/interfaces";
+
+// models
 import { Notes } from "./models/notes";
 import { Pools } from "./models/pools";
+import { Posts } from "./models/posts";
 import { TagAliases } from "./models/tagAliases";
 import { Tags } from "./models/tags";
 
 export class JS621 {
-  public posts: Posts;
   public notes: Notes;
   public pools: Pools;
+  public posts: Posts;
   public tagAliases: TagAliases;
   public tags: Tags;
 
@@ -39,9 +44,9 @@ export class JS621 {
   };
 
   private setup_models = () => {
-    this.posts = new Posts(this.stateInfo);
     this.notes = new Notes(this.stateInfo);
     this.pools = new Pools(this.stateInfo);
+    this.posts = new Posts(this.stateInfo);
     this.tagAliases = new TagAliases(this.stateInfo);
     this.tags = new Tags(this.stateInfo);
   };
