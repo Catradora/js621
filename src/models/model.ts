@@ -8,18 +8,10 @@ export class Model {
   constructor(stateInfo: StateInfo) {
     // Preserve rate limiter, user agent, etc.
     this.stateInfo = stateInfo;
-    // this.throttledResponse = this.stateInfo.rateLimiter.wrap(
-    //   this.submit_request
-    // );
   }
 
-  // private updateStateInfo = (stateInfo: StateInfo) => {
-  //   // Keep stateInfo up-to-date after login, etc.
-  //   this.stateInfo = stateInfo;
-  // };
-
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
-  private submit_request = (query_url: string, method: Method) => {
+  public submit_request = (query_url: string, method: Method) => {
     if (this.stateInfo.username && this.stateInfo.api_key) {
       const axiosConfig: AxiosRequestConfig = {
         method: method,
@@ -42,11 +34,11 @@ export class Model {
     }
   };
 
-  public submit_throttled_request = (url: string, method: Method) => {
-    return this.stateInfo.rateLimiter.schedule(
-      this.submit_request,
-      url,
-      method
-    );
-  };
+  // public submit_throttled_request = (url: string, method: Method) => {
+  //   return this.stateInfo.rateLimiter.schedule(
+  //     this.submit_request,
+  //     url,
+  //     method
+  //   );
+  // };
 }
