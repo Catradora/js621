@@ -1,7 +1,6 @@
 #Files
 skip.txt
 src/trial.ts
-dist/trial.js
 
 
 #Directories
