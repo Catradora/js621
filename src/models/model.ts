@@ -4,7 +4,6 @@ import { StateInfo, Method } from "./interfaces";
 
 export class Model {
   public stateInfo: StateInfo;
-  //private throttledResponse: any;
 
   constructor(stateInfo: StateInfo) {
     // Preserve rate limiter, user agent, etc.
@@ -25,7 +24,6 @@ export class Model {
           password: this.stateInfo.api_key,
         },
       };
-      //const result = await limiter.schedule(() => myFunction(arg1, arg2));
       return this.modelLimiter.schedule(() => axios(axiosConfig));
     } else {
       const axiosConfig: AxiosRequestConfig = {
@@ -33,7 +31,6 @@ export class Model {
         url: query_url,
         headers: { "User-Agent": this.stateInfo.userAgent },
       };
-
       return this.modelLimiter.schedule(() => axios(axiosConfig));
     }
   };
