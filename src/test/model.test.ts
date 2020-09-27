@@ -2,19 +2,22 @@ jest.mock("axios");
 
 import { Model } from "../models/model";
 import Bottleneck from "bottleneck";
-import { mocked } from "ts-jest";
+import { mocked } from "ts-jest/utils";
 import axios, { AxiosResponse } from "axios";
+import { StateInfo } from "../models/interfaces";
 
-let expected_state_info = {
-  ratelimiter: new Bottleneck({ minTime: 1000 }),
+let expected_state_info: StateInfo = {
+  ratelimiter: new Bottleneck({ minTime: 0 }),
   userAgent: "email@website.com",
-  userName: "username",
-  api_key: "12345abcde",
 };
 
 let testModel: Model;
 
 describe("model", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should initialize with stateInfo as provided", () => {
     testModel = new Model(expected_state_info);
     expect(testModel.stateInfo).toEqual(expected_state_info);
@@ -61,6 +64,54 @@ describe("model", () => {
       method: "get",
       url: "https://www.e621.net/posts.json?limit=1",
       headers: { "User-Agent": "email@website.com" },
+    });
+  });
+
+  it("should submit get requests to a given URL with logging in", async () => {
+    // Arrange
+    const axiosResponse: AxiosResponse = {
+      data: {
+        posts: [
+          {
+            id: 12345,
+            created_at: "2020-09-26T22:03:14.400-04:00",
+            updated_at: "2020-09-26T22:03:30.847-04:00",
+            file: {},
+            preview: {},
+            sample: {},
+            score: {},
+            tags: {},
+            locked_tags: [],
+            change_seq: 12345,
+            flags: {},
+          },
+        ],
+      },
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    };
+
+    expected_state_info.username = "test_username";
+    expected_state_info.api_key = "test_api_key";
+
+    mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
+
+    testModel = new Model(expected_state_info);
+
+    //Act
+    await testModel.submit_request(
+      "https://www.e621.net/posts.json?limit=1",
+      "get"
+    );
+
+    //Assert
+    expect(axios).toHaveBeenCalledWith({
+      headers: { "User-Agent": "email@website.com" },
+      auth: { username: "test_username", password: "test_api_key" },
+      method: "get",
+      url: "https://www.e621.net/posts.json?limit=1",
     });
   });
 });
