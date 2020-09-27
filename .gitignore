@@ -1,5 +1,6 @@
 #Files
-skip.txt
+skip.*
+skip2.*
 src/trial.ts
 
 

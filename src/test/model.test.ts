@@ -58,28 +58,30 @@ describe("model", () => {
     );
 
     //Assert
-    expect(result).to.equal({
-      data: {
-        posts: [
-          {
-            id: 12345,
-            created_at: "2020-09-26T22:03:14.400-04:00",
-            updated_at: "2020-09-26T22:03:30.847-04:00",
-            file: {},
-            preview: {},
-            sample: {},
-            score: {},
-            tags: {},
-            locked_tags: [],
-            change_seq: 12345,
-            flags: {},
-          },
-        ],
-      },
-      status: 200,
-      statusText: "OK",
-      config: {},
-      headers: {},
-    });
+    expect(JSON.stringify(result)).to.equal(
+      JSON.stringify({
+        data: {
+          posts: [
+            {
+              id: 12345,
+              created_at: "2020-09-26T22:03:14.400-04:00",
+              updated_at: "2020-09-26T22:03:30.847-04:00",
+              file: {},
+              preview: {},
+              sample: {},
+              score: {},
+              tags: {},
+              locked_tags: [],
+              change_seq: 12345,
+              flags: {},
+            },
+          ],
+        },
+        status: 200,
+        statusText: "OK",
+        config: {},
+        headers: {},
+      })
+    );
   });
 });
