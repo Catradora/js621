@@ -7,7 +7,7 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
-    "test_nyc": "nyc jest --coverage",
+    "test_coverage": "jest --coverage",
     "test": "jest",
     "test_watch": "jest --watchAll",
     "build": "tsc"

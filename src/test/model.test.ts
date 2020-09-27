@@ -1,10 +1,10 @@
+jest.mock("axios");
+
 import { Model } from "../models/model";
-import { expect } from "chai";
+//import { expect } from "chai";
 import Bottleneck from "bottleneck";
 import { mocked } from "ts-jest";
 import axios, { AxiosResponse } from "axios";
-
-jest.mock("axios");
 
 let expected_state_info = {
   ratelimiter: new Bottleneck({ minTime: 1000 }),
@@ -18,7 +18,7 @@ let testModel: Model;
 describe("model", () => {
   it("should initialize with stateInfo as provided", () => {
     testModel = new Model(expected_state_info);
-    expect(testModel.stateInfo).to.equal(expected_state_info);
+    expect(testModel.stateInfo).toEqual(expected_state_info);
   });
 
   it("should submit get requests to a given URL without logging in", async () => {
@@ -52,36 +52,16 @@ describe("model", () => {
     testModel = new Model(expected_state_info);
 
     //Act
-    const result = await testModel.submit_request(
+    await testModel.submit_request(
       "https://www.e621.net/posts.json?limit=1",
       "get"
     );
 
     //Assert
-    expect(JSON.stringify(result)).to.equal(
-      JSON.stringify({
-        data: {
-          posts: [
-            {
-              id: 12345,
-              created_at: "2020-09-26T22:03:14.400-04:00",
-              updated_at: "2020-09-26T22:03:30.847-04:00",
-              file: {},
-              preview: {},
-              sample: {},
-              score: {},
-              tags: {},
-              locked_tags: [],
-              change_seq: 12345,
-              flags: {},
-            },
-          ],
-        },
-        status: 200,
-        statusText: "OK",
-        config: {},
-        headers: {},
-      })
-    );
+    expect(axios).toHaveBeenCalledWith({
+      method: "get",
+      url: "https://www.e621.net/posts.json?limit=1",
+      headers: { "User-Agent": "email@website.com" },
+    });
   });
 });
