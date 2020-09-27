@@ -1,7 +1,6 @@
 jest.mock("axios");
 
 import { Model } from "../models/model";
-//import { expect } from "chai";
 import Bottleneck from "bottleneck";
 import { mocked } from "ts-jest";
 import axios, { AxiosResponse } from "axios";
