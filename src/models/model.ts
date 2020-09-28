@@ -1,10 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { StateInfo, Method } from "./interfaces";
-
-interface RequestArgs {
-  query_url: string;
-  method: Method;
-}
+import { StateInfo } from "./interfaces";
+import { ModelRequestArgs as RequestArgs } from "./argumentTypes";
 
 export class Model {
   public stateInfo: StateInfo;
