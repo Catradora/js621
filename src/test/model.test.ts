@@ -37,15 +37,13 @@ describe("model", () => {
     testModel = new Model(expected_state_info);
 
     //Act
-    await testModel.submit_request(
-      "https://www.e621.net/posts.json?limit=1",
-      "get"
-    );
+    await testModel.submit_request("posts.json?limit=1", "get");
 
     //Assert
     expect(axios).toHaveBeenCalledWith({
+      baseURL: "https://www.e621.net/",
       method: "get",
-      url: "https://www.e621.net/posts.json?limit=1",
+      url: "posts.json?limit=1",
       headers: { "User-Agent": "email@website.com" },
     });
   });
@@ -60,17 +58,15 @@ describe("model", () => {
     testModel = new Model(expected_state_info);
 
     //Act
-    await testModel.submit_request(
-      "https://www.e621.net/posts.json?limit=1",
-      "get"
-    );
+    await testModel.submit_request("posts.json?limit=1", "get");
 
     //Assert
     expect(axios).toHaveBeenCalledWith({
+      baseURL: "https://www.e621.net/",
       headers: { "User-Agent": "email@website.com" },
       auth: { username: "test_username", password: "test_api_key" },
       method: "get",
-      url: "https://www.e621.net/posts.json?limit=1",
+      url: "posts.json?limit=1",
     });
   });
 });
