@@ -6,16 +6,24 @@ import { mocked } from "ts-jest/utils";
 import axios, { AxiosResponse } from "axios";
 import { StateInfo } from "../models/interfaces";
 
-let expected_state_info: StateInfo = {
-  ratelimiter: new Bottleneck({ minTime: 0 }),
-  userAgent: "email@website.com",
-};
-
+let expected_state_info: StateInfo;
 let testModel: Model;
+let axiosResponse: AxiosResponse;
 
 describe("model", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    expected_state_info = {
+      ratelimiter: new Bottleneck({ minTime: 0 }),
+      userAgent: "email@website.com",
+    };
+    axiosResponse = {
+      data: {},
+      status: 200,
+      statusText: "OK",
+      config: {},
+      headers: {},
+    };
   });
 
   it("should initialize with stateInfo as provided", () => {
@@ -24,31 +32,6 @@ describe("model", () => {
   });
 
   it("should submit get requests to a given URL without logging in", async () => {
-    //Arrange
-    const axiosResponse: AxiosResponse = {
-      data: {
-        posts: [
-          {
-            id: 12345,
-            created_at: "2020-09-26T22:03:14.400-04:00",
-            updated_at: "2020-09-26T22:03:30.847-04:00",
-            file: {},
-            preview: {},
-            sample: {},
-            score: {},
-            tags: {},
-            locked_tags: [],
-            change_seq: 12345,
-            flags: {},
-          },
-        ],
-      },
-      status: 200,
-      statusText: "OK",
-      config: {},
-      headers: {},
-    };
-
     mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
 
     testModel = new Model(expected_state_info);
@@ -68,31 +51,7 @@ describe("model", () => {
   });
 
   it("should submit get requests to a given URL with logging in", async () => {
-    // Arrange
-    const axiosResponse: AxiosResponse = {
-      data: {
-        posts: [
-          {
-            id: 12345,
-            created_at: "2020-09-26T22:03:14.400-04:00",
-            updated_at: "2020-09-26T22:03:30.847-04:00",
-            file: {},
-            preview: {},
-            sample: {},
-            score: {},
-            tags: {},
-            locked_tags: [],
-            change_seq: 12345,
-            flags: {},
-          },
-        ],
-      },
-      status: 200,
-      statusText: "OK",
-      config: {},
-      headers: {},
-    };
-
+    //Login
     expected_state_info.username = "test_username";
     expected_state_info.api_key = "test_api_key";
 
