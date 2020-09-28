@@ -2,7 +2,7 @@ jest.mock("axios");
 
 import { Model } from "../models/model";
 import Bottleneck from "bottleneck";
-import { mocked } from "ts-jest";
+import { mocked } from "ts-jest/utils";
 import axios, { AxiosResponse } from "axios";
 import { StateInfo } from "../models/interfaces";
 

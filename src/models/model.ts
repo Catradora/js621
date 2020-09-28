@@ -12,8 +12,8 @@ export class Model {
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
   public submit_request = async (query_url: string, method: Method) => {
     if (
-      this.stateInfo.username !== "undefined" &&
-      this.stateInfo.api_key !== "undefined"
+      this.stateInfo.username !== undefined &&
+      this.stateInfo.api_key !== undefined
     ) {
       const axiosConfig: AxiosRequestConfig = {
         method: method,
