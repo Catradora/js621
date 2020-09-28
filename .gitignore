@@ -7,3 +7,4 @@ src/trial.ts
 #Directories
 dist/
 .nyc_output/
+coverage/
