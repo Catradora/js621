@@ -16,6 +16,7 @@ export class Model {
       this.stateInfo.api_key !== undefined
     ) {
       const axiosConfig: AxiosRequestConfig = {
+        baseURL: "https://www.e621.net/",
         method: method,
         url: query_url,
         headers: { "User-Agent": this.stateInfo.userAgent },
@@ -27,6 +28,7 @@ export class Model {
       return this.stateInfo.ratelimiter.schedule(() => axios(axiosConfig));
     } else {
       const axiosConfig: AxiosRequestConfig = {
+        baseURL: "https://www.e621.net/",
         method: "get",
         url: query_url,
         headers: { "User-Agent": this.stateInfo.userAgent },
