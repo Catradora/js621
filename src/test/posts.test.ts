@@ -30,4 +30,14 @@ describe("model", () => {
     testPosts = new Posts(test_state_info);
     expect(testPosts.stateInfo).toBe(test_state_info);
   });
+
+  it("should reject uploading a post without being logged in", () => {
+    //Arrange
+    test_state_info.username = "test_username";
+    test_state_info.api_key = "test_api_key";
+    testPosts = new Posts(test_state_info);
+
+    //Act
+    testPosts.create();
+  });
 });

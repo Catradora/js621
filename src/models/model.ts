@@ -1,6 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { StateInfo, Method } from "./interfaces";
 
+interface RequestArgs {
+  query_url: string;
+  method: Method;
+}
+
 export class Model {
   public stateInfo: StateInfo;
 
@@ -10,7 +15,7 @@ export class Model {
   }
 
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
-  public submit_request = async (query_url: string, method: Method) => {
+  public submit_request = async ({ query_url, method }: RequestArgs) => {
     if (
       this.stateInfo.username !== undefined &&
       this.stateInfo.api_key !== undefined

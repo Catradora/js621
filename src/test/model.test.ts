@@ -37,7 +37,10 @@ describe("model", () => {
     testModel = new Model(expected_state_info);
 
     //Act
-    await testModel.submit_request("posts.json?limit=1", "get");
+    await testModel.submit_request({
+      query_url: "posts.json?limit=1",
+      method: "get",
+    });
 
     //Assert
     expect(axios).toHaveBeenCalledWith({
@@ -58,7 +61,10 @@ describe("model", () => {
     testModel = new Model(expected_state_info);
 
     //Act
-    await testModel.submit_request("posts.json?limit=1", "get");
+    await testModel.submit_request({
+      query_url: "posts.json?limit=1",
+      method: "get",
+    });
 
     //Assert
     expect(axios).toHaveBeenCalledWith({
