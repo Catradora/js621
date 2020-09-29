@@ -31,7 +31,7 @@ describe("model", () => {
     expect(testPosts.stateInfo).toBe(test_state_info);
   });
 
-  it("should reject uploading a post without being logged in", () => {
+  it("should upload a post given username, api_key, and a direct_url", () => {
     //Arrange
     test_state_info.username = "test_username";
     test_state_info.api_key = "test_api_key";

@@ -11,6 +11,7 @@ export interface ModelRequestArgs {
 export interface PostCreateArgs {
   tag_string: string[];
   file?: fs.ReadStream;
+  filename?: string;
   rating: "s" | "q" | "e";
   direct_url?: string;
   source?: string;
