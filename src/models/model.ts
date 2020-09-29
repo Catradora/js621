@@ -11,7 +11,11 @@ export class Model {
   }
 
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
-  public submit_request = async ({ query_url, method }: RequestArgs) => {
+  public submit_request = async ({
+    query_url,
+    method,
+    multipart,
+  }: RequestArgs) => {
     if (
       this.stateInfo.username !== undefined &&
       this.stateInfo.api_key !== undefined
@@ -26,6 +30,10 @@ export class Model {
           password: this.stateInfo.api_key!,
         },
       };
+      if (multipart !== undefined) {
+        axiosConfig.headers["Content-Type"] = "multipart/form-data";
+        axiosConfig.data = multipart;
+      }
       return this.stateInfo.ratelimiter.schedule(() => axios(axiosConfig));
     } else {
       const axiosConfig: AxiosRequestConfig = {
@@ -34,6 +42,10 @@ export class Model {
         url: query_url,
         headers: { "User-Agent": this.stateInfo.userAgent },
       };
+      if (multipart !== undefined) {
+        axiosConfig.headers["Content-Type"] = "multipart/form-data";
+        axiosConfig.data = multipart;
+      }
       return this.stateInfo.ratelimiter.schedule(() => axios(axiosConfig));
     }
   };

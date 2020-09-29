@@ -5,7 +5,7 @@ import FormData from "form-data";
 export interface ModelRequestArgs {
   query_url: string;
   method: Method;
-  multipart: 
+  multipart?: FormData;
 }
 
 export interface PostCreateArgs {
