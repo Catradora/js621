@@ -31,7 +31,7 @@ describe("model", () => {
     expect(testPosts.stateInfo).toBe(test_state_info);
   });
 
-  it("should upload a post given username, api_key, and a direct_url", () => {
+  it("should upload a post given username, api_key, and a direct_url", async () => {
     //Arrange
     test_state_info.username = "test_username";
     test_state_info.api_key = "test_api_key";
@@ -39,7 +39,7 @@ describe("model", () => {
     mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
 
     //Act
-    testPosts.create({
+    await testPosts.create({
       direct_url: "https://fileurl.ext",
       tag_string: ["image", "file"],
       rating: "s",
@@ -52,7 +52,7 @@ describe("model", () => {
       auth: { username: "test_username", password: "test_api_key" },
       method: "post",
       url:
-        "uploads.json?upload[tag_string]=image file&upload[direct_url]=https://fileurl.ext&upload[rating]=s",
+        "uploads.json?upload[direct_url]=https://fileurl.ext&upload[rating]=s&upload[source]=&upload[tag_string]=image file",
     });
   });
 });

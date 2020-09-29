@@ -26,31 +26,12 @@ export class Posts extends Model {
     let query_url: string;
     let formData: FormData | undefined = undefined;
 
-    let tags: string = tag_string.join(" ");
-    query_args["upload[tag_string]"] = tags;
-
-    query_args["upload[rating]"] = rating;
-
-    query_args["upload[source]"] = this.parse_source(source);
+    if (as_pending !== undefined) {
+      query_args["upload[as_pending]"] = as_pending;
+    }
 
     if (description !== undefined) {
       query_args["upload[description]"] = description;
-    }
-
-    if (parent_id !== undefined) {
-      query_args["upload[parent_id]"] = parent_id;
-    }
-
-    if (referer_url !== undefined) {
-      query_args["upload[referer-url]"] = referer_url;
-    }
-
-    if (md5_confirmation !== undefined) {
-      query_args["upload[md5_confirmation]"] = md5_confirmation;
-    }
-
-    if (as_pending !== undefined) {
-      query_args["upload[as_pending]"] = as_pending;
     }
 
     if (this.is_direct_url(file, filename, direct_url)) {
@@ -59,6 +40,26 @@ export class Posts extends Model {
       formData = new FormData();
       formData.append(filename!, file!);
     }
+
+    if (md5_confirmation !== undefined) {
+      query_args["upload[md5_confirmation]"] = md5_confirmation;
+    }
+
+    if (parent_id !== undefined) {
+      query_args["upload[parent_id]"] = parent_id;
+    }
+
+    query_args["upload[rating]"] = rating;
+
+    if (referer_url !== undefined) {
+      query_args["upload[referer-url]"] = referer_url;
+    }
+
+    query_args["upload[source]"] = this.parse_source(source);
+
+    let tags: string = tag_string.join(" ");
+    query_args["upload[tag_string]"] = tags;
+
     query_url = this.generate_query_url(query_args);
 
     return this.submit_request({
@@ -107,6 +108,6 @@ export class Posts extends Model {
     for (let i = 0; i < query_elements.length; i++) {
       query_terms.push(query_elements[i].join("="));
     }
-    return query_terms.join("&");
+    return "uploads.json?" + query_terms.join("&");
   };
 }
