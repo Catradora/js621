@@ -1,9 +1,11 @@
 import { Method } from "./interfaces";
 import fs from "fs";
+import FormData from "form-data";
 
 export interface ModelRequestArgs {
   query_url: string;
   method: Method;
+  multipart: 
 }
 
 export interface PostCreateArgs {
