@@ -2,7 +2,7 @@ import { StateInfo } from "./interfaces";
 import { PostCreateArgs } from "./argumentTypes";
 import { Model } from "./model";
 import FormData from "form-data";
-import fs from "fs";
+import * as fs from "fs";
 
 export class Posts extends Model {
   constructor(stateInfo: StateInfo) {
