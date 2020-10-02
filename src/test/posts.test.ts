@@ -4,8 +4,7 @@ import Bottleneck from "bottleneck";
 import FormData from "form-data";
 import * as fs from "fs";
 
-jest.mock("axios");
-
+//Set up mocking of FormData, since we don't really want it to create a new FormData object
 const mockAppend = jest.fn();
 jest.mock("form-data", () => {
   return jest.fn().mockImplementation(() => {
@@ -15,16 +14,7 @@ jest.mock("form-data", () => {
   });
 });
 
-// jest.mock("form-data", () => {
-//   return jest.fn().mockImplementation(() => {
-//     return {
-//       append: jest.fn(() => {
-//         return true;
-//       }),
-//     };
-//   });
-// });
-
+//Setup global variables
 let test_state_info: StateInfo;
 let testPosts: Posts;
 
@@ -42,30 +32,31 @@ describe("posts", () => {
     expect(testPosts.stateInfo).toBe(test_state_info);
   });
 
-  // it("should upload a post given username, api_key, and a direct_url", async () => {
-  //   //Arrange
-  //   test_state_info.username = "test_username";
-  //   test_state_info.api_key = "test_api_key";
-  //   testPosts = new Posts(test_state_info);
-  //   mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
+  it("should upload a post given username, api_key, and a direct_url", async () => {
+    //Arrange
 
-  //   //Act
-  //   await testPosts.create({
-  //     direct_url: "https://fileurl.ext",
-  //     tag_string: ["image", "file"],
-  //     rating: "s",
-  //   });
+    //Login
+    test_state_info.username = "test_username";
+    test_state_info.api_key = "test_api_key";
 
-  //   //Assert
-  //   expect(axios).toHaveBeenCalledWith({
-  //     baseURL: "https://www.e621.net/",
-  //     headers: { "User-Agent": "email@website.com" },
-  //     auth: { username: "test_username", password: "test_api_key" },
-  //     method: "post",
-  //     url:
-  //       "uploads.json?upload[direct_url]=https://fileurl.ext&upload[rating]=s&upload[source]=&upload[tag_string]=image file",
-  //   });
-  // });
+    //Create testPosts object, mock out call to "submit_request"
+    testPosts = new Posts(test_state_info);
+    testPosts.submit_request = jest.fn();
+
+    //Act
+    await testPosts.create({
+      direct_url: "https://fileurl.ext",
+      tag_string: ["image", "file"],
+      rating: "s",
+    });
+
+    //Assert
+    expect(testPosts.submit_request).toHaveBeenCalledWith({
+      query_url:
+        "uploads.json?upload[direct_url]=https://fileurl.ext&upload[rating]=s&upload[source]=&upload[tag_string]=image file",
+      method: "post",
+    });
+  });
 
   it("should submit post requests with form data with logging in", async () => {
     //Arrange
@@ -98,5 +89,9 @@ describe("posts", () => {
       method: "post",
       multipart: formData,
     });
+  });
+
+  it("should reject submitting a post without login information", async () => {
+    return true;
   });
 });

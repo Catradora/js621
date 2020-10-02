@@ -38,7 +38,7 @@ export class Model {
     } else {
       const axiosConfig: AxiosRequestConfig = {
         baseURL: "https://www.e621.net/",
-        method: "get",
+        method: method,
         url: query_url,
         headers: { "User-Agent": this.stateInfo.userAgent },
       };

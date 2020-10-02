@@ -114,4 +114,36 @@ describe("model", () => {
         "uploads.json?upload[tag_string]=horse tail&upload[rating]=s&upload[source]=",
     });
   });
+
+  it("should submit post requests with form data without logging in", async () => {
+    mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
+
+    testModel = new Model(expected_state_info);
+    let formData: FormData = new FormData();
+    formData.append(
+      "fakefile.png",
+      fs.createReadStream("./fixtures/fakefile.png")
+    );
+
+    //Act
+    await testModel.submit_request({
+      query_url:
+        "uploads.json?upload[tag_string]=horse tail&upload[rating]=s&upload[source]=",
+      method: "post",
+      multipart: formData,
+    });
+
+    //Assert
+    expect(axios).toHaveBeenCalledWith({
+      baseURL: "https://www.e621.net/",
+      headers: {
+        "User-Agent": "email@website.com",
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+      method: "post",
+      url:
+        "uploads.json?upload[tag_string]=horse tail&upload[rating]=s&upload[source]=",
+    });
+  });
 });
