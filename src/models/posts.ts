@@ -22,6 +22,13 @@ export class Posts extends Model {
     md5_confirmation,
     as_pending,
   }: PostCreateArgs) => {
+    //Raise an error if not logged in
+    if (!this.is_logged_in()) {
+      throw new Error(
+        "Must provide both username and api_key to create a post"
+      );
+    }
+
     const query_args = {} as any;
     let query_url: string;
     let formData: FormData | undefined = undefined;
@@ -52,7 +59,7 @@ export class Posts extends Model {
     query_args["upload[rating]"] = rating;
 
     if (referer_url !== undefined) {
-      query_args["upload[referer-url]"] = referer_url;
+      query_args["upload[referer_url]"] = referer_url;
     }
 
     query_args["upload[source]"] = this.parse_source(source);
@@ -69,6 +76,16 @@ export class Posts extends Model {
     });
   };
 
+  private is_logged_in = () => {
+    if (
+      this.stateInfo.username === undefined ||
+      this.stateInfo.api_key === undefined
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   private is_direct_url = (
     file?: fs.ReadStream,
     filename?: string,
@@ -80,11 +97,17 @@ export class Posts extends Model {
       filename === undefined &&
       direct_url === undefined
     ) {
-      throw "Either file and filename must be supplied, or direct_url must be supplied. Not none.";
+      throw new Error(
+        "Either file and filename must be supplied, or direct_url must be supplied. Not none."
+      );
     } else if (file !== undefined && filename === undefined) {
-      throw "If file is provided, so too must filename be provided, e.g. 'image.png'";
+      throw new Error(
+        "If file is provided, so too must filename be provided, e.g. 'image.png'"
+      );
     } else if (file === undefined && filename !== undefined) {
-      throw "If filename is provided, so too must file be provided, as a FormData object.";
+      throw new Error(
+        "If filename is provided, so too must file be provided, as a FormData object."
+      );
     }
 
     if (direct_url !== undefined) {
