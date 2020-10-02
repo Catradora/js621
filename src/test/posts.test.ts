@@ -6,15 +6,24 @@ import * as fs from "fs";
 
 jest.mock("axios");
 
+const mockAppend = jest.fn();
 jest.mock("form-data", () => {
   return jest.fn().mockImplementation(() => {
     return {
-      append: jest.fn(() => {
-        return true;
-      }),
+      append: mockAppend,
     };
   });
 });
+
+// jest.mock("form-data", () => {
+//   return jest.fn().mockImplementation(() => {
+//     return {
+//       append: jest.fn(() => {
+//         return true;
+//       }),
+//     };
+//   });
+// });
 
 let test_state_info: StateInfo;
 let testPosts: Posts;
@@ -26,13 +35,6 @@ describe("posts", () => {
       ratelimiter: new Bottleneck({ minTime: 0 }),
       userAgent: "email@website.com",
     };
-    // axiosResponse = {
-    //   data: {},
-    //   status: 200,
-    //   statusText: "OK",
-    //   config: {},
-    //   headers: {},
-    // };
   });
 
   it("should instantiate with the correct state_info", () => {
@@ -68,8 +70,6 @@ describe("posts", () => {
   it("should submit post requests with form data with logging in", async () => {
     //Arrange
 
-    //Setup mocks
-
     //Login
     test_state_info.username = "test_username";
     test_state_info.api_key = "test_api_key";
@@ -80,6 +80,7 @@ describe("posts", () => {
     //Setup Posts object, and FormData
     testPosts = new Posts(test_state_info);
     testPosts.submit_request = jest.fn();
+
     let formData: FormData = new FormData();
     formData.append("fakefile.png", stream);
 
@@ -93,7 +94,7 @@ describe("posts", () => {
 
     expect(testPosts.submit_request).toHaveBeenCalledWith({
       query_url:
-        "uploads.json?upload[filename]=fakefile.png&upload[rating]=s&upload[source]=&upload[tag_string]=horse tail",
+        "uploads.json?upload[rating]=s&upload[source]=&upload[tag_string]=horse tail",
       method: "post",
       multipart: formData,
     });
