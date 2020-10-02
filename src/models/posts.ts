@@ -106,7 +106,7 @@ export class Posts extends Model {
       );
     } else if (file === undefined && filename !== undefined) {
       throw new Error(
-        "If filename is provided, so too must file be provided, as a FormData object."
+        "If filename is provided, so too must file be provided, as an fs.ReadStream object."
       );
     }
 

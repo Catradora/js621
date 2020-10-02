@@ -228,7 +228,7 @@ describe("posts", () => {
     } catch (err) {
       expect(err).toEqual(
         new Error(
-          "If filename is provided, so too must file be provided, as a FormData object."
+          "If filename is provided, so too must file be provided, as an fs.ReadStream object."
         )
       );
     }
