@@ -1,5 +1,5 @@
 import { StateInfo } from "./interfaces";
-import { PostCreateArgs } from "./argumentTypes";
+import { PostCreateArgs, PostUpdateArgs } from "./argumentTypes";
 import { Model } from "./model";
 import FormData from "form-data";
 import * as fs from "fs";
@@ -75,6 +75,22 @@ export class Posts extends Model {
       multipart: formData,
     });
   };
+
+  update = async ({
+    description,
+    edit_reason,
+    has_embedded_notes,
+    is_note_locked,
+    is_rating_locked,
+    old_description,
+    old_parent_id,
+    old_rating,
+    parent_id,
+    post_id,
+    rating,
+    source_diff,
+    tag_string_diff,
+  }: PostUpdateArgs) => {};
 
   private is_logged_in = () => {
     if (

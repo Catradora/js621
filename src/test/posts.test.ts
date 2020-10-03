@@ -3,6 +3,7 @@ import { StateInfo } from "../models/interfaces";
 import Bottleneck from "bottleneck";
 import FormData from "form-data";
 import * as fs from "fs";
+import { ModelRequestArgs } from "../models/argumentTypes";
 
 jest.mock("axios"); //Prevent any calls to the wider net
 
@@ -232,5 +233,58 @@ describe("posts", () => {
         )
       );
     }
+  });
+
+  it("should update a post provided all parameters, while logged in", async () => {
+    //Arrange
+
+    //Login
+    test_state_info.username = "fake_username";
+    test_state_info.api_key = "fake_api_key";
+    testPosts = new Posts(test_state_info);
+
+    //Mock-out requests
+    testPosts.submit_request = jest.fn();
+
+    //Produce expected calls
+    let expected_query_terms: string[] = [
+      "post[description]=new description",
+      "post[edit_reason]=updated tags, etc.",
+      "post[has_embedded_notes]=false",
+      "post[is_note_locked]=false",
+      "post[is_rating_locked]=false",
+      "post[old_description]=old description",
+      "post[old_parent_id]=12344",
+      "post[old_rating]=q",
+      "post[parent_id]=12345",
+      "post[rating]=s",
+      "post[source_diff]=website1.ext\nwebsite2.ext",
+      "post[tag_string_diff]=horse -cat",
+    ];
+    let expected_args: ModelRequestArgs = {
+      query_url: "posts/12344.json?" + expected_query_terms.join("&"),
+      method: "patch",
+      multipart: undefined,
+    };
+
+    //Act
+    await testPosts.update({
+      post_id: 12344,
+      tag_string_diff: ["horse", "-cat"],
+      source_diff: ["website1.ext", "website2.ext"],
+      parent_id: 12345,
+      old_parent_id: 12344,
+      description: "new description",
+      old_description: "old description",
+      rating: "s",
+      old_rating: "q",
+      is_rating_locked: false,
+      is_note_locked: false,
+      edit_reason: "updated tags, etc.",
+      has_embedded_notes: false,
+    });
+
+    //Assert
+    expect(testPosts.submit_request).toHaveBeenCalledWith(expected_args);
   });
 });
