@@ -4,6 +4,7 @@ import {
   PostListArgs,
   PostUpdateArgs,
   PostListFlagsArgs,
+  PostCreateFlagArgs,
 } from "./argumentTypes";
 import { Model } from "./model";
 import FormData from "form-data";
@@ -208,6 +209,30 @@ export class Posts extends Model {
     query_url = "post_flags.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({ query_url: query_url, method: "get" });
+  };
+
+  create_flag = async ({
+    post_id,
+    reason_name,
+    parent_id,
+  }: PostCreateFlagArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must provide both username and api_key to flag a post");
+    }
+    const query_args = {} as any;
+    let query_url: string;
+
+    query_args["post_flag[post_id]"] = post_id!;
+
+    if (parent_id !== undefined) {
+      query_args["post_flag[parent_id]"] = parent_id!;
+    }
+
+    query_args["post_flag[reason_name]"] = reason_name!;
+
+    query_url = "post_flags.json?" + this.generate_query_url(query_args);
+
+    return this.submit_request({ query_url: query_url, method: "post" });
   };
 
   private is_logged_in = () => {

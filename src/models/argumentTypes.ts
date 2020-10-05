@@ -51,3 +51,9 @@ export interface PostListFlagsArgs {
   creator_id?: number;
   creator_name?: string;
 }
+
+export interface PostCreateFlagArgs {
+  post_id?: number;
+  reason_name?: string;
+  parent_id?: number;
+}
