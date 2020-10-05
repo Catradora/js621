@@ -28,7 +28,7 @@ export interface PostUpdateArgs {
   has_embedded_notes?: boolean;
   is_note_locked?: boolean;
   is_rating_locked?: boolean;
-  old_description?: boolean;
+  old_description?: string;
   old_parent_id?: number;
   old_rating?: "s" | "q" | "e";
   parent_id?: number;

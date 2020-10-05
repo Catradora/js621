@@ -91,6 +91,12 @@ export class Posts extends Model {
     source_diff,
     tag_string_diff,
   }: PostUpdateArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error(
+        "Must provide both username and api_key to update a post"
+      );
+    }
+
     const query_args = {} as any;
     let query_url: string;
     let query_url_base: string = "posts/" + post_id! + ".json?";
