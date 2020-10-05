@@ -5,6 +5,7 @@ import {
   PostUpdateArgs,
   PostListFlagsArgs,
   PostCreateFlagArgs,
+  PostVoteArgs,
 } from "./argumentTypes";
 import { Model } from "./model";
 import FormData from "form-data";
@@ -231,6 +232,21 @@ export class Posts extends Model {
     query_args["post_flag[reason_name]"] = reason_name!;
 
     query_url = "post_flags.json?" + this.generate_query_url(query_args);
+
+    return this.submit_request({ query_url: query_url, method: "post" });
+  };
+
+  vote = async ({ post_id, score, no_unvote }: PostVoteArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must provide both username and api_key to flag a post");
+    }
+    let query_url: string = "posts/" + post_id + "/votes.json?";
+
+    if (no_unvote !== undefined) {
+      query_url += "no_unvote=" + no_unvote + "&";
+    }
+
+    query_url += "score=" + score;
 
     return this.submit_request({ query_url: query_url, method: "post" });
   };

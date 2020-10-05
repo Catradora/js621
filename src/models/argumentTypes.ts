@@ -57,3 +57,9 @@ export interface PostCreateFlagArgs {
   reason_name?: string;
   parent_id?: number;
 }
+
+export interface PostVoteArgs {
+  post_id: number;
+  score: 1 | -1;
+  no_unvote?: boolean;
+}
