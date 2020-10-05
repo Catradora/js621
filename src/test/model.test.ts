@@ -1,10 +1,10 @@
 jest.mock("axios");
 
-import { Model } from "../../models/model";
+import { Model } from "../models/model";
 import Bottleneck from "bottleneck";
 import { mocked } from "ts-jest/utils";
 import axios, { AxiosResponse } from "axios";
-import { StateInfo } from "../../models/interfaces";
+import { StateInfo } from "../models/interfaces";
 import FormData from "form-data";
 import * as fs from "fs";
 
