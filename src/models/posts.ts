@@ -1,5 +1,5 @@
 import { StateInfo } from "./interfaces";
-import { PostCreateArgs, PostUpdateArgs } from "./argumentTypes";
+import { PostCreateArgs, PostListArgs, PostUpdateArgs } from "./argumentTypes";
 import { Model } from "./model";
 import FormData from "form-data";
 import * as fs from "fs";
@@ -144,6 +144,42 @@ export class Posts extends Model {
       query_url: query_url,
       method: "patch",
     });
+  };
+
+  list = async ({
+    limit,
+    tags,
+    page,
+    before_page,
+    after_page,
+  }: PostListArgs) => {
+    const query_args = {} as any;
+    let query_url: string;
+
+    if (limit !== undefined) {
+      if (limit > 320) {
+        query_args["limit"] = 320;
+      } else {
+        query_args["limit"] = limit!;
+      }
+    }
+    if (page !== undefined) {
+      if (page > 750) {
+        query_args["page"] = 750!;
+      } else {
+        query_args["page"] = page!;
+      }
+    } else if (before_page !== undefined) {
+      query_args["page"] = "b" + before_page!;
+    } else if (after_page !== undefined) {
+      query_args["page"] = "a" + after_page!;
+    }
+    if (tags !== undefined) {
+      query_args["tags"] = tags!.join(" ");
+    }
+    query_url = "posts.json?" + this.generate_query_url(query_args);
+
+    return this.submit_request({ query_url: query_url, method: "get" });
   };
 
   private is_logged_in = () => {
