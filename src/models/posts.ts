@@ -67,7 +67,7 @@ export class Posts extends Model {
     let tags: string = tag_string.join(" ");
     query_args["upload[tag_string]"] = tags;
 
-    query_url = this.generate_query_url(query_args);
+    query_url = "uploads.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({
       query_url: query_url,
@@ -90,7 +90,55 @@ export class Posts extends Model {
     rating,
     source_diff,
     tag_string_diff,
-  }: PostUpdateArgs) => {};
+  }: PostUpdateArgs) => {
+    const query_args = {} as any;
+    let query_url: string;
+    let query_url_base: string = "posts/" + post_id! + ".json?";
+
+    if (description !== undefined) {
+      query_args["post[description]"] = description!;
+    }
+    if (edit_reason !== undefined) {
+      query_args["post[edit_reason]"] = edit_reason!;
+    }
+    if (has_embedded_notes !== undefined) {
+      query_args["post[has_embedded_notes]"] = has_embedded_notes!;
+    }
+    if (is_note_locked !== undefined) {
+      query_args["post[is_note_locked]"] = is_note_locked!;
+    }
+    if (is_rating_locked !== undefined) {
+      query_args["post[is_rating_locked]"] = is_rating_locked!;
+    }
+    if (old_description !== undefined) {
+      query_args["post[old_description]"] = old_description!;
+    }
+    if (old_parent_id !== undefined) {
+      query_args["post[old_parent_id]"] = old_parent_id!;
+    }
+    if (old_rating !== undefined) {
+      query_args["post[old_rating]"] = old_rating!;
+    }
+    if (parent_id !== undefined) {
+      query_args["post[parent_id]"] = parent_id!;
+    }
+    if (rating !== undefined) {
+      query_args["post[rating]"] = rating!;
+    }
+    if (source_diff !== undefined) {
+      query_args["post[source_diff]"] = source_diff!.join("\n");
+    }
+    if (tag_string_diff !== undefined) {
+      query_args["post[tag_string_diff]"] = tag_string_diff!.join(" ");
+    }
+
+    query_url = query_url_base + this.generate_query_url(query_args);
+
+    return this.submit_request({
+      query_url: query_url,
+      method: "patch",
+    });
+  };
 
   private is_logged_in = () => {
     if (
@@ -147,6 +195,6 @@ export class Posts extends Model {
     for (let i = 0; i < query_elements.length; i++) {
       query_terms.push(query_elements[i].join("="));
     }
-    return "uploads.json?" + query_terms.join("&");
+    return query_terms.join("&");
   };
 }
