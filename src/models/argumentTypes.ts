@@ -63,3 +63,14 @@ export interface PostVoteArgs {
   score: 1 | -1;
   no_unvote?: boolean;
 }
+
+export interface TagListArgs {
+  name_matches?: string;
+  category?: string;
+  order?: "date" | "count" | "name";
+  hide_empty?: boolean;
+  has_wiki?: boolean;
+  has_artist?: boolean;
+  limit?: number;
+  page?: number;
+}

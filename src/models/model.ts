@@ -11,7 +11,7 @@ export class Model {
   }
 
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
-  public submit_request = async ({
+  protected submit_request = async ({
     query_url,
     method,
     multipart,
@@ -48,5 +48,14 @@ export class Model {
       }
       return this.stateInfo.ratelimiter.schedule(() => axios(axiosConfig));
     }
+  };
+
+  protected generate_query_url = (query_args: {}) => {
+    let query_terms: string[] = [];
+    let query_elements = Object.entries(query_args);
+    for (let i = 0; i < query_elements.length; i++) {
+      query_terms.push(query_elements[i].join("="));
+    }
+    return query_terms.join("&");
   };
 }
