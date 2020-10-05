@@ -37,3 +37,11 @@ export interface PostUpdateArgs {
   source_diff?: string[];
   tag_string_diff?: string[];
 }
+
+export interface PostListArgs {
+  limit?: number;
+  tags?: string[];
+  page?: number;
+  before_page?: number;
+  after_page?: number;
+}
