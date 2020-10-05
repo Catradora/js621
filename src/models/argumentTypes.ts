@@ -45,3 +45,9 @@ export interface PostListArgs {
   before_page?: number;
   after_page?: number;
 }
+
+export interface PostListFlagsArgs {
+  post_id?: number;
+  creator_id?: number;
+  creator_name?: string;
+}

@@ -1,5 +1,10 @@
 import { StateInfo } from "./interfaces";
-import { PostCreateArgs, PostListArgs, PostUpdateArgs } from "./argumentTypes";
+import {
+  PostCreateArgs,
+  PostListArgs,
+  PostUpdateArgs,
+  PostListFlagsArgs,
+} from "./argumentTypes";
 import { Model } from "./model";
 import FormData from "form-data";
 import * as fs from "fs";
@@ -178,6 +183,29 @@ export class Posts extends Model {
       query_args["tags"] = tags!.join(" ");
     }
     query_url = "posts.json?" + this.generate_query_url(query_args);
+
+    return this.submit_request({ query_url: query_url, method: "get" });
+  };
+
+  list_flags = async ({
+    post_id,
+    creator_id,
+    creator_name,
+  }: PostListFlagsArgs) => {
+    const query_args = {} as any;
+    let query_url: string;
+
+    if (creator_id !== undefined) {
+      query_args["search[creator_id]"] = creator_id!;
+    }
+    if (creator_name !== undefined) {
+      query_args["search[creator_name]"] = creator_name!;
+    }
+    if (post_id !== undefined) {
+      query_args["search[post_id]"] = post_id!;
+    }
+
+    query_url = "post_flags.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({ query_url: query_url, method: "get" });
   };
