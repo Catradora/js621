@@ -73,4 +73,6 @@ export interface TagListArgs {
   has_artist?: boolean;
   limit?: number;
   page?: number;
+  before_page?: number;
+  after_page?: number;
 }

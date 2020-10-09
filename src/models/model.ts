@@ -11,7 +11,7 @@ export class Model {
   }
 
   //Updated to funcName = () => {} syntax to bind "this" to this class context.
-  protected submit_request = async ({
+  public submit_request = async ({
     query_url,
     method,
     multipart,
