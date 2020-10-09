@@ -39,7 +39,7 @@ export class Tags extends Model {
     }
 
     if (category !== undefined) {
-      query_args["search[category]"] = category!;
+      query_args["search[category]"] = this.parse_category(category!);
     }
     if (has_artist !== undefined) {
       query_args["search[has_artist]"] = has_artist!;
@@ -61,4 +61,17 @@ export class Tags extends Model {
 
     return this.submit_request({ query_url: query_url, method: "get" });
   };
+
+  private parse_category(category: string) {
+    const valid_categories: {[index:string]: number} = {
+      "general": 0,
+      "artist": 1,
+      "copyright": 3,
+      "character" : 4,
+      "species" : 5,
+      "meta" : 7,
+      "lore" : 8
+    }
+    return valid_categories[category];
+  }
 }

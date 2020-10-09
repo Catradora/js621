@@ -66,7 +66,7 @@ export interface PostVoteArgs {
 
 export interface TagListArgs {
   name_matches?: string;
-  category?: string;
+  category?: "general" | "artist" | "copyright" | "character" | "species" | "meta" | "lore";
   order?: "date" | "count" | "name";
   hide_empty?: boolean;
   has_wiki?: boolean;

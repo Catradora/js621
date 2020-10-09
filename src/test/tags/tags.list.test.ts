@@ -61,7 +61,7 @@ describe("tags", () => {
 
     let expected_args: string[] = [
       "search[name_matches]=horse*",
-      "search[category]=artist",
+      "search[category]=1",
       "search[order]=date",
       "search[hide_empty]=true",
       "search[has_wiki]=true",
