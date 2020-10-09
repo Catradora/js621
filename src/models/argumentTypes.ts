@@ -116,3 +116,13 @@ export interface TagAliasListArgs {
   before_page?: number;
   after_page?: number;
 }
+
+export interface NotesListArgs {
+  body_matches?: string;
+  post_id?: number;
+  post_tags_match?: string;
+  creator_name?: string;
+  creator_id?: number;
+  is_active?: boolean;
+  limit?: number;
+}
