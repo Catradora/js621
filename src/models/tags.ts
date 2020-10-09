@@ -63,15 +63,15 @@ export class Tags extends Model {
   };
 
   private parse_category(category: string) {
-    const valid_categories: {[index:string]: number} = {
-      "general": 0,
-      "artist": 1,
-      "copyright": 3,
-      "character" : 4,
-      "species" : 5,
-      "meta" : 7,
-      "lore" : 8
-    }
+    const valid_categories: { [index: string]: number } = {
+      general: 0,
+      artist: 1,
+      copyright: 3,
+      character: 4,
+      species: 5,
+      meta: 7,
+      lore: 8,
+    };
     return valid_categories[category];
   }
 }

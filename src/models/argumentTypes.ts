@@ -66,11 +66,51 @@ export interface PostVoteArgs {
 
 export interface TagListArgs {
   name_matches?: string;
-  category?: "general" | "artist" | "copyright" | "character" | "species" | "meta" | "lore";
+  category?:
+    | "general"
+    | "artist"
+    | "copyright"
+    | "character"
+    | "species"
+    | "meta"
+    | "lore";
   order?: "date" | "count" | "name";
   hide_empty?: boolean;
   has_wiki?: boolean;
   has_artist?: boolean;
+  limit?: number;
+  page?: number;
+  before_page?: number;
+  after_page?: number;
+}
+
+export interface TagAliasListArgs {
+  name_matches?: string;
+  status?:
+    | "approved"
+    | "active"
+    | "pending"
+    | "deleted"
+    | "retired"
+    | "processing"
+    | "queued";
+  order?: "status" | "created_at" | "updated_at" | "name" | "tag_count";
+  antecedent_tag_category?:
+    | "general"
+    | "artist"
+    | "copyright"
+    | "character"
+    | "species"
+    | "meta"
+    | "lore";
+  consequent_tag_category?:
+    | "general"
+    | "artist"
+    | "copyright"
+    | "character"
+    | "species"
+    | "meta"
+    | "lore";
   limit?: number;
   page?: number;
   before_page?: number;
