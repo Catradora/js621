@@ -1,6 +1,6 @@
 import { Model } from "./model";
 import { StateInfo } from "./interfaces";
-import { NotesListArgs } from "./argumentTypes";
+import { NotesListArgs, NotesCreateArgs } from "./argumentTypes";
 
 export class Notes extends Model {
   constructor(stateInfo: StateInfo) {
@@ -47,5 +47,24 @@ export class Notes extends Model {
     query_url = "notes.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({ query_url: query_url, method: "get" });
+  };
+
+  create = async ({ post_id, x, y, width, height, body }: NotesCreateArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must be logged in to create a note.");
+    }
+
+    let query_args = {} as any;
+    let query_url: string;
+
+    query_args["note[body]"] = body;
+    query_args["note[height]"] = height;
+    query_args["note[post_id]"] = post_id;
+    query_args["note[width]"] = width;
+    query_args["note[x]"] = x;
+    query_args["note[y]"] = y;
+    query_url = "notes.json?" + this.generate_query_url(query_args);
+
+    return this.submit_request({ query_url: query_url, method: "post" });
   };
 }

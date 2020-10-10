@@ -126,3 +126,12 @@ export interface NotesListArgs {
   is_active?: boolean;
   limit?: number;
 }
+
+export interface NotesCreateArgs {
+  post_id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  body: string;
+}

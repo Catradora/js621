@@ -58,4 +58,14 @@ export class Model {
     }
     return query_terms.join("&");
   };
+
+  public is_logged_in = () => {
+    if (
+      this.stateInfo.username === undefined ||
+      this.stateInfo.api_key === undefined
+    ) {
+      return false;
+    }
+    return true;
+  };
 }

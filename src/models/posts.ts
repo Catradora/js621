@@ -251,16 +251,6 @@ export class Posts extends Model {
     return this.submit_request({ query_url: query_url, method: "post" });
   };
 
-  private is_logged_in = () => {
-    if (
-      this.stateInfo.username === undefined ||
-      this.stateInfo.api_key === undefined
-    ) {
-      return false;
-    }
-    return true;
-  };
-
   private is_direct_url = (
     file?: fs.ReadStream,
     filename?: string,

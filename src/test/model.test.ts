@@ -146,4 +146,26 @@ describe("model", () => {
         "uploads.json?upload[tag_string]=horse tail&upload[rating]=s&upload[source]=",
     });
   });
+
+  it("should return false if not logged in", () => {
+    //Arrange
+    testModel = new Model({
+      ratelimiter: new Bottleneck({ minTime: 0 }),
+      userAgent: "test_useragent",
+    });
+    //Assert
+    expect(testModel.is_logged_in()).toEqual(false);
+  });
+
+  it("should return true if logged in", () => {
+    //Arrange
+    testModel = new Model({
+      ratelimiter: new Bottleneck({ minTime: 0 }),
+      userAgent: "test_useragent",
+      username: "test_username",
+      api_key: "test_api_key",
+    });
+    //Assert
+    expect(testModel.is_logged_in()).toEqual(true);
+  });
 });
