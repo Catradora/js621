@@ -88,4 +88,14 @@ export class Notes extends Model {
     query_url += this.generate_query_url(query_args);
     return this.submit_request({ query_url: query_url, method: "put" });
   };
+
+  delete = async (note_id: number) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must be logged in to delete a note.");
+    }
+    this.submit_request({
+      query_url: "notes/" + note_id + ".json?",
+      method: "delete",
+    });
+  };
 }
