@@ -4,6 +4,7 @@ import {
   NotesListArgs,
   NotesCreateArgs,
   NotesUpdateArgs,
+  NotesRevertArgs,
 } from "./argumentTypes";
 
 export class Notes extends Model {
@@ -97,5 +98,15 @@ export class Notes extends Model {
       query_url: "notes/" + note_id + ".json?",
       method: "delete",
     });
+  };
+
+  revert = async ({ note_id, version_id }: NotesRevertArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must be logged in to revert a note.");
+    }
+    const query_url: string =
+      "notes/" + note_id + "/revert.json?version_id=" + version_id;
+
+    this.submit_request({ query_url: query_url, method: "put" });
   };
 }

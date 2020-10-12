@@ -144,3 +144,8 @@ export interface NotesUpdateArgs {
   height: number;
   body: string;
 }
+
+export interface NotesRevertArgs {
+  note_id: number;
+  version_id: number;
+}
