@@ -169,3 +169,12 @@ export interface PoolsCreateArgs {
   category?: "series" | "collection";
   is_locked?: boolean;
 }
+
+export interface PoolsUpdateArgs {
+  id: number;
+  name?: string;
+  description?: string;
+  post_ids?: number[];
+  is_active?: boolean;
+  category?: "series" | "collection";
+}

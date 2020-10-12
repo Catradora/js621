@@ -1,6 +1,10 @@
 import { Model } from "./model";
 import { StateInfo } from "./interfaces";
-import { PoolsListArgs, PoolsCreateArgs } from "./argumentTypes";
+import {
+  PoolsListArgs,
+  PoolsCreateArgs,
+  PoolsUpdateArgs,
+} from "./argumentTypes";
 
 export class Pools extends Model {
   constructor(stateInfo: StateInfo) {
@@ -89,5 +93,44 @@ export class Pools extends Model {
     query_url = "pools.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({ query_url: query_url, method: "post" });
+  };
+
+  update = async ({
+    id,
+    name,
+    description,
+    post_ids,
+    is_active,
+    category,
+  }: PoolsUpdateArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must be logged in to update a pool.");
+    }
+    const query_args = {} as any;
+    let query_url: string;
+
+    query_url = "pools/" + id + ".json?";
+
+    if (category !== undefined) {
+      query_args["pool[category]"] = category;
+    }
+    if (description !== undefined) {
+      query_args["pool[description]"] = description!;
+    }
+    if (is_active !== undefined) {
+      if (is_active) {
+        query_args["pool[is_active]"] = 1;
+      } else {
+        query_args["pool[is_active]"] = 0;
+      }
+    }
+    if (name !== undefined) {
+      query_args["pool[name]"] = name!;
+    }
+    if (post_ids !== undefined) {
+      query_args["pool[post_ids]"] = post_ids.join(" ")!;
+    }
+    query_url += this.generate_query_url(query_args);
+    return this.submit_request({ query_url: query_url, method: "put" });
   };
 }
