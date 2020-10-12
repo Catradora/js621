@@ -39,7 +39,7 @@ describe("pools", () => {
 
     //Act
     await testPools.list({
-      name_matches: "horse*",
+      name_matches: "horse* tail",
       id: 12345,
       description_matches: "horse*",
       creator_name: "test_creator",
@@ -52,7 +52,7 @@ describe("pools", () => {
     });
 
     const expected_args: string[] = [
-      "search[name_matches]=horse*",
+      "search[name_matches]=horse* tail",
       "search[id]=12345",
       "search[description_matches]=horse*",
       "search[creator_name]=test_creator",

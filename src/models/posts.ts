@@ -12,10 +12,30 @@ import FormData from "form-data";
 import * as fs from "fs";
 
 export class Posts extends Model {
+  /**
+   * Calls to parent class constructor with state_info.
+   * @param stateInfo - A dictionary containing a user-agent, rate-limiter, and username/API key if logged in.
+   */
   constructor(stateInfo: StateInfo) {
     super(stateInfo);
   }
 
+  /**
+   * Creates a post, given either the URL of an image to download, or a stream of the image file itself.
+   * Must provide the file (either through URL or stream), tags, and a rating.
+   * @param {[string]} tag_string - a list of strings representing the tags of the post
+   * @param {Stream} [file] - optional (if direct_url is provided); a stream of the image file
+   * @param {string} [filename] - optional (if direct_url is provided); the name of the image file, including extension.
+   * @param {string} rating - one of 's', 'q', or 'e,' representing safe, questionable, and explicit, respectively.
+   * @param {string} [direct_url] - optional (if file and filename are provided); the URL of the image to upload
+   * @param {string} [source] - optional; the source text for the post
+   * @param {string} [description] - optional; the description text for the post
+   * @param {number} [parent_id] - optional; the ID of this post's parent post
+   * @param {string} [referer_url] - unclear in API documentation
+   * @param {string} [md5_confirmation] - optional; the MD5 checksum of the file to be uploaded
+   * @param {boolean} [as_pending] - true if pending, false if not.
+   * @returns a dictionary containing success if successful, failure if unsuccessful, among other information.
+   */
   create = async ({
     tag_string,
     file,
@@ -83,6 +103,23 @@ export class Posts extends Model {
     });
   };
 
+  /**
+   * Updates a given post by its ID. Supply only those parameters to be changed.
+   * @param {string} [description] - optional; the description text of the post
+   * @param {string} [edit_reason] - optional; the reason for editing the post
+   * @param {boolean} [has_embedded_notes] - optional; true if the post has notes embedded in it, false if not
+   * @param {boolean} [is_note_locked] - optional; true if notes cannot be submitted, false if they can
+   * @param {boolean} [is_rating_locked] - optional; true if the rating cannot be changed, false if it can
+   * @param {string} [old_description] - optional; the description of the post prior to being updated
+   * @param {number} [old_parent_id] - optional; the ID of the post's parent, prior to being updated
+   * @param {string} [old_rating] - optional; one of 's', 'q', or 'e', representing safe, questionable, or explicit, respectively
+   * @param {number} [parent_id] - optional; the ID number of this post's parent post
+   * @param {number} post_id - the ID number of the post to update
+   * @param {string} [rating] - optional; one of 's', 'q', or 'e', representing safe, questionable, or explicit, respectively
+   * @param {[string]} [source_diff] - optional; a list of strings representing changes to the post's sources
+   * @param {[string]} [tag_string_diff] - optional; a list of strings representing changes to the post's tags
+   * @returns unknown; API documentation unclear
+   */
   update = async ({
     description,
     edit_reason,
@@ -153,6 +190,15 @@ export class Posts extends Model {
     });
   };
 
+  /**
+   * Lists posts, as filtered by arguments
+   * @param {number} [limit] - optional; the number of posts to return. All requests with a limit greater than 320 default to 320.
+   * @param {[string]} [tags] - optional; a list of tags to filter the post, as you would type into e621.net. (Note: tags like "order:score" work)
+   * @param {number} [page] - optional; the page number of posts to return (if limit is 320, each 320 posts will flow onto another page).
+   * @param {number} [before_page] - optional; used to filter by post ID number. Whatever is provided for before_page will limit posts returned to post ID numbers lesser
+   * @param {number} [after_page] - optional; the inverse of before_page; lists posts with post ID's higher than the after_page provided.
+   * @returns a JSON array containing a list of posts, and information corresponding to those posts (e.g. ID, url, size, etc.)
+   */
   list = async ({
     limit,
     tags,
@@ -189,6 +235,12 @@ export class Posts extends Model {
     return this.submit_request({ query_url: query_url, method: "get" });
   };
 
+  /**
+   * Given one or all arguments, returns a list of flags related to the post/creator
+   * @param {number} [post_id] - optional; the ID of the post whose flags are to be returned
+   * @param {number} [creator_id] - optional; the ID of the flag's creator
+   * @param {string} [creator_name] - optional; the name of the flag's creator
+   */
   list_flags = async ({
     post_id,
     creator_id,
@@ -212,6 +264,12 @@ export class Posts extends Model {
     return this.submit_request({ query_url: query_url, method: "get" });
   };
 
+  /**
+   * Creates a flag for a given post
+   * @param {number} post_id - the ID of the post for which the flag is to be created
+   * @param {string} reason_name - the reason for creating the flag, e.g. "inferior"
+   * @param {number} [parent_id] - optional; the ID of the superior post, when flagging the post as inferior
+   */
   create_flag = async ({
     post_id,
     reason_name,
@@ -236,6 +294,13 @@ export class Posts extends Model {
     return this.submit_request({ query_url: query_url, method: "post" });
   };
 
+  /**
+   * Votes on a post
+   * @param {number} post_id - the ID of the post on which to vote
+   * @param {number} score - 1 to upvote, -1 to downvote
+   * @param {boolean} [no_unvote] - optional; true has this score replace the old score (e.g. if previously downvoted, upvoting with no_unvote being false simply reverts the vote to 0)
+   * @returns a json dictionary with information about the post's vote, e.g. the number of upvotes, downvotes, and the user's score.
+   */
   vote = async ({ post_id, score, no_unvote }: PostVoteArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must provide both username and api_key to flag a post");

@@ -165,7 +165,7 @@ export interface PoolsListArgs {
 
 export interface PoolsCreateArgs {
   name: string;
-  description: string;
+  description?: string;
   category?: "series" | "collection";
   is_locked?: boolean;
 }

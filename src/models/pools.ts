@@ -8,10 +8,28 @@ import {
 } from "./argumentTypes";
 
 export class Pools extends Model {
+  /**
+   * Calls to parent class constructor with state_info.
+   * @param stateInfo - A dictionary containing a user-agent, rate-limiter, and username/API key if logged in.
+   */
   constructor(stateInfo: StateInfo) {
     super(stateInfo);
   }
 
+  /**
+   * Finds a list of posts, as filtered by given arguments
+   * @param {string} name_matches - a string matching the name of the pools. Permits wildcards, e.g. "horse*"
+   * @param {number} id - the ID of the pool
+   * @param {string} description_matches - a string matching the description of the pools. Permits wildcards, e.g. "horse*"
+   * @param {string} creator_name - the name of the pool's creator
+   * @param {number} creator_id - the ID of the pool's creator.
+   * @param {boolean} is_active - true if the pool is active, false if not.
+   * @param {boolean} is_deleted - true if the pool is deleted, false if not.
+   * @param {string} category - one of 'series' or 'collection' depending on the type of pool
+   * @param {string} order - the order of the returned pools, one of 'name', 'created_at', 'updated_at', or 'post_count'. Default is 'updated_at' if not specified.
+   * @param {number} limit - the number of pools to return; all requests over 1,000 default to a maximum of 1,000 per the API specification.
+   * @returns a JSON dictionary containing information about the pools, e.g. their ID, name, created_at, etc.
+   */
   list = async ({
     name_matches,
     id,
@@ -66,6 +84,14 @@ export class Pools extends Model {
     return this.submit_request({ query_url: query_url, method: "get" });
   };
 
+  /**
+   * Creates a new pool. Only a name is required.
+   * @param {string} name - the name of the pool
+   * @param {string} [description] - optional; the description text of the pool
+   * @param {string} [category] - optional; one of "series" or "collection" depending on the type of pool
+   * @param {boolean} [is_locked] - optiona; true if locked, false if not
+   * @returns a JSON dictionary containing information about the pools, e.g. their ID, name, created_at, etc.
+   */
   create = async ({
     name,
     description,
@@ -81,7 +107,12 @@ export class Pools extends Model {
     if (category !== undefined) {
       query_args["pool[category]"] = category!;
     }
-    query_args["pool[description]"] = description;
+    if (description !== undefined) {
+      query_args["pool[description]"] = description!;
+    } else {
+      query_args["pool[description]"] = "";
+    }
+
     if (is_locked !== undefined) {
       if (is_locked) {
         query_args["pool[is_locked]"] = 1;
@@ -96,6 +127,16 @@ export class Pools extends Model {
     return this.submit_request({ query_url: query_url, method: "post" });
   };
 
+  /**
+   * Updates a pool. Provide only those parameters which are to be updated.
+   * @param {number} id - the ID of the pool to update
+   * @param {string} [name] - the name of the pool
+   * @param {string} [description] - the description text of the pool
+   * @param {[number]} [post_ids] - an array of ID numbers of posts to include in the pool
+   * @param {boolean} [is_active] - true if the pool is active, false if not.
+   * @param {string} [category] - one of "series" or "collection" depending on the type of pool
+   * @returns a JSON dictionary containing information about the pools, e.g. their ID, name, created_at, etc.
+   */
   update = async ({
     id,
     name,
@@ -135,6 +176,11 @@ export class Pools extends Model {
     return this.submit_request({ query_url: query_url, method: "put" });
   };
 
+  /**
+   * Reverts a pool to a given prior version of itself
+   * @param {number} id - the ID of the pool
+   * @param {number} version_id - the version ID to which the pool should be reverted
+   */
   revert = async ({ id, version_id }: PoolsRevertArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must be logged in to revert a pool.");
