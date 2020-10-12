@@ -1,6 +1,6 @@
 import { Model } from "./model";
 import { StateInfo } from "./interfaces";
-import { PoolsListArgs } from "./argumentTypes";
+import { PoolsListArgs, PoolsCreateArgs } from "./argumentTypes";
 
 export class Pools extends Model {
   constructor(stateInfo: StateInfo) {
@@ -59,5 +59,35 @@ export class Pools extends Model {
     query_url = "pools.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({ query_url: query_url, method: "get" });
+  };
+
+  create = async ({
+    name,
+    description,
+    category,
+    is_locked,
+  }: PoolsCreateArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must be logged in to create a pool.");
+    }
+    const query_args = {} as any;
+    let query_url: string;
+
+    if (category !== undefined) {
+      query_args["pool[category]"] = category!;
+    }
+    query_args["pool[description]"] = description;
+    if (is_locked !== undefined) {
+      if (is_locked) {
+        query_args["pool[is_locked]"] = 1;
+      } else {
+        query_args["pool[is_locked]"] = 0;
+      }
+    }
+    query_args["pool[name]"] = name;
+
+    query_url = "pools.json?" + this.generate_query_url(query_args);
+
+    return this.submit_request({ query_url: query_url, method: "post" });
   };
 }

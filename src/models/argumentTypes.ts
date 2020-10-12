@@ -162,3 +162,10 @@ export interface PoolsListArgs {
   order?: "name" | "created_at" | "updated_at" | "post_count";
   limit?: number;
 }
+
+export interface PoolsCreateArgs {
+  name: string;
+  description: string;
+  category?: "series" | "collection";
+  is_locked?: boolean;
+}
