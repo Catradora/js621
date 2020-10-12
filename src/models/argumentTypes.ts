@@ -135,3 +135,12 @@ export interface NotesCreateArgs {
   height: number;
   body: string;
 }
+
+export interface NotesUpdateArgs {
+  note_id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  body: string;
+}
