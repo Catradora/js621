@@ -4,6 +4,7 @@ import {
   PoolsListArgs,
   PoolsCreateArgs,
   PoolsUpdateArgs,
+  PoolsRevertArgs,
 } from "./argumentTypes";
 
 export class Pools extends Model {
@@ -132,5 +133,15 @@ export class Pools extends Model {
     }
     query_url += this.generate_query_url(query_args);
     return this.submit_request({ query_url: query_url, method: "put" });
+  };
+
+  revert = async ({ id, version_id }: PoolsRevertArgs) => {
+    if (!this.is_logged_in()) {
+      throw new Error("Must be logged in to revert a pool.");
+    }
+    const query_url: string =
+      "pools/" + id + "/revert.json?version_id=" + version_id;
+
+    this.submit_request({ query_url: query_url, method: "put" });
   };
 }

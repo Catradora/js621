@@ -178,3 +178,8 @@ export interface PoolsUpdateArgs {
   is_active?: boolean;
   category?: "series" | "collection";
 }
+
+export interface PoolsRevertArgs {
+  id: number;
+  version_id: number;
+}
