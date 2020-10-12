@@ -40,8 +40,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -103,7 +101,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_models_notes_.notes.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_models_notes_.notes.html#delete" class="tsd-kind-icon">delete</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_models_notes_.notes.html#generate_query_url" class="tsd-kind-icon">generate_<wbr>query_<wbr>url</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_models_notes_.notes.html#is_logged_in" class="tsd-kind-icon">is_<wbr>logged_<wbr>in</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_models_notes_.notes.html#list" class="tsd-kind-icon">list</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_models_notes_.notes.html#revert" class="tsd-kind-icon">revert</a></li>
@@ -120,7 +117,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Notes<span class="tsd-signature-symbol">(</span>stateInfo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_models_interfaces_.stateinfo.html" class="tsd-signature-type">StateInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_models_notes_.notes.html" class="tsd-signature-type">Notes</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Notes<span class="tsd-signature-symbol">(</span>stateInfo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">StateInfo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_models_notes_.notes.html" class="tsd-signature-type">Notes</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -138,7 +135,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>stateInfo: <a href="../interfaces/_src_models_interfaces_.stateinfo.html" class="tsd-signature-type">StateInfo</a></h5>
+									<h5>stateInfo: <span class="tsd-signature-type">StateInfo</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>A dictionary containing a user-agent, rate-limiter, and username/API key if logged in.</p>
@@ -156,7 +153,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="stateinfo" class="tsd-anchor"></a>
 					<h3>state<wbr>Info</h3>
-					<div class="tsd-signature tsd-kind-icon">state<wbr>Info<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_models_interfaces_.stateinfo.html" class="tsd-signature-type">StateInfo</a></div>
+					<div class="tsd-signature tsd-kind-icon">state<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StateInfo</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_models_model_.model.html">Model</a>.<a href="_src_models_model_.model.html#stateinfo">stateInfo</a></p>
 						<ul>
@@ -177,7 +174,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/models/notes.ts:82</li>
+									<li>Defined in src/models/notes.ts:89</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,21 +189,51 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5>body<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the text body of the note</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the height of the note&#39;s box</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>post_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the ID number of the post to which the note corresponds</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the height of the note&#39;s box</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>x coordinate of the note&#39;s top-left corner, as measured in pixels from the top left corner of the post</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>y coordinate of the note&#39;s top-left corner, as measured in pixels from the top left corner of the post</p>
+												</div>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -226,7 +253,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/models/notes.ts:132</li>
+									<li>Defined in src/models/notes.ts:165</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -246,45 +273,6 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="generate_query_url" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> generate_<wbr>query_<wbr>url</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">generate_<wbr>query_<wbr>url<span class="tsd-signature-symbol">(</span>query_args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_models_model_.model.html">Model</a>.<a href="_src_models_model_.model.html#generate_query_url">generate_query_url</a></p>
-								<ul>
-									<li>Defined in src/models/model.ts:68</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Produces an ampersand-delimited string of arguments for passing through to submit_request.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>query_args: <span class="tsd-signature-symbol">{}</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>A dictionary containing keys in the form of parameter names, and values representing their arguments.</p>
-										</div>
-									</div>
-									<ul class="tsd-parameters">
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<ul>
-								<li>An ampersand-delimited string of arguments for passing through to submit_request.</li>
-							</ul>
 						</li>
 					</ul>
 				</section>
@@ -337,24 +325,59 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5>body_<wbr>matches<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>query string to match the note body against. Permits wildcards, e.g. &quot;horse*&quot;</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>creator_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the ID number of the note&#39;s creator</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>creator_<wbr>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the username of the note&#39;s creator</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>is_<wbr>active<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>true if the note is active, false if not</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>limit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the number of notes to return. limited to a maximum of 1,000; calls over 1,000 will simply return 1,000 results.</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>post_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the ID number of the post to which the note corresponds.</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>post_<wbr>tags_<wbr>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>a list of strings representing tags the note&#39;s corresponding post should match. Permits wildcards, e.g. &quot;horse*&quot;</p>
+												</div>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -368,13 +391,13 @@
 					<a name="revert" class="tsd-anchor"></a>
 					<h3>revert</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>note_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>version_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>note_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>version_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/models/notes.ts:147</li>
+									<li>Defined in src/models/notes.ts:180</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -389,14 +412,24 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5>note_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the ID number of the note</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>version_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the version number of the note</p>
+												</div>
+											</div>
 										</li>
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -404,7 +437,7 @@
 					<a name="submit_request" class="tsd-anchor"></a>
 					<h3>submit_<wbr>request</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">submit_<wbr>request<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><a href="../modules/_src_models_interfaces_.html#method" class="tsd-signature-type">Method</a><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">submit_<wbr>request<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Method</span><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -422,10 +455,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><a href="../modules/_src_models_interfaces_.html#method" class="tsd-signature-type">Method</a><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Method</span><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>method<span class="tsd-signature-symbol">: </span><a href="../modules/_src_models_interfaces_.html#method" class="tsd-signature-type">Method</a></h5>
+											<h5>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Method</span></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span></h5>
@@ -453,7 +486,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/models/notes.ts:111</li>
+									<li>Defined in src/models/notes.ts:131</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -468,21 +501,51 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5>body<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the text body of the note</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the height of the note&#39;s box</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>note_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the ID number of the note to update.</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>the width of the note&#39;s box</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>x coordinate of the note&#39;s top-left corner, as measured in pixels from the top left corner of the post</p>
+												</div>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<div class="lead">
+													<p>y coordinate of the note&#39;s top-left corner, as measured in pixels from the top left corner of the post</p>
+												</div>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -500,8 +563,29 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_index_.html">&quot;src/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_argumenttypes_.html">&quot;src/models/argument<wbr>Types&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_model_.html">&quot;src/models/model&quot;</a>
+					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_src_models_notes_.html">&quot;src/models/notes&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_pools_.html">&quot;src/models/pools&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_posts_.html">&quot;src/models/posts&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_tagaliases_.html">&quot;src/models/tag<wbr>Aliases&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_tags_.html">&quot;src/models/tags&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -523,9 +607,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_models_notes_.notes.html#delete" class="tsd-kind-icon">delete</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_models_notes_.notes.html#generate_query_url" class="tsd-kind-icon">generate_<wbr>query_<wbr>url</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_models_notes_.notes.html#is_logged_in" class="tsd-kind-icon">is_<wbr>logged_<wbr>in</a>
@@ -551,7 +632,7 @@
 		</div>
 	</div>
 </div>
-<footer class="with-border-bottom">
+<footer>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
@@ -559,10 +640,6 @@
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
@@ -574,9 +651,6 @@
 		</div>
 	</div>
 </footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
 </body>

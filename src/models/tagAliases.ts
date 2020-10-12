@@ -17,7 +17,7 @@ export class TagAliases extends Model {
    * @param {string} [status] - optional; one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', 'queued', or 'blank'.
    * @param {string} [order] - optional; one of 'status', 'created_at', 'updated_at', 'name', or 'tag_count.' Default, if not provided, is 'status'.
    * @param {string} [antecedent_tag_category] - optional; the tag category to which the original tag belonged: one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', or 'queued'.
-   * @param {string} [consequent_tag_category] - optional; the tag catgeory to which the new tag belongs: one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', or 'queued'.
+   * @param {string} [consequent_tag_category] - optional; the tag category to which the new tag belongs: one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', or 'queued'.
    * @param {number} [limit] - optional; the number of tag_aliases to return; limits greater than 1,000 default to a maximum of 1,000, per the API.
    * @param {number} [page] - optional; the page of tag_aliases to return (pages are defined as traunches of size 'limit.' Defaults to 75.)
    * @param {number} [before_page] - optional; limits results to ID numbers lesser than before_page
@@ -25,14 +25,23 @@ export class TagAliases extends Model {
    * @returns a JSON dictionary listing tag_aliases meeting the criteria given, and information thereabout (e.g. id, status, etc.)
    */
   list = async ({
+    /**a string against which to match the tag_alias. Permits wildcards, e.g. "horse*" */
     name_matches,
+    /**one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', 'queued', or 'blank'. */
     status,
+    /**one of 'status', 'created_at', 'updated_at', 'name', or 'tag_count.' Default, if not provided, is 'status'. */
     order,
+    /**the tag category to which the original tag belonged: one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', or 'queued'. */
     antecedent_tag_category,
+    /**the tag category to which the new tag belongs: one of 'approved', 'active', 'pending', 'deleted', 'retired', 'processing', or 'queued'. */
     consequent_tag_category,
+    /**the number of tag_aliases to return; limits greater than 1,000 default to a maximum of 1,000, per the API. */
     limit,
+    /**the page of tag_aliases to return (pages are defined as traunches of size 'limit.' Defaults to 75.) */
     page,
+    /**limits results to ID numbers lesser than before_page */
     before_page,
+    /**limits results to ID numbers greater than after_page */
     after_page,
   }: TagAliasListArgs) => {
     let query_args = {} as any;

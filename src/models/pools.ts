@@ -31,15 +31,25 @@ export class Pools extends Model {
    * @returns a JSON dictionary containing information about the pools, e.g. their ID, name, created_at, etc.
    */
   list = async ({
+    /**a string matching the name of the pools. Permits wildcards, e.g. "horse*"*/
     name_matches,
+    /**the ID of the pool*/
     id,
+    /**a string matching the description of the pools. Permits wildcards, e.g. "horse*"*/
     description_matches,
+    /**the name of the pool's creator*/
     creator_name,
+    /**the ID of the pool's creator.*/
     creator_id,
+    /**true if the pool is active, false if not.*/
     is_active,
+    /**true if the pool is deleted, false if not.*/
     is_deleted,
+    /**one of 'series' or 'collection' depending on the type of pool*/
     category,
+    /**the order of the returned pools, one of 'name', 'created_at', 'updated_at', or 'post_count'. Default is 'updated_at' if not specified.*/
     order,
+    /**the number of pools to return; all requests over 1,000 default to a maximum of 1,000 per the API specification.*/
     limit,
   }: PoolsListArgs) => {
     const query_args = {} as any;
@@ -89,13 +99,17 @@ export class Pools extends Model {
    * @param {string} name - the name of the pool
    * @param {string} [description] - optional; the description text of the pool
    * @param {string} [category] - optional; one of "series" or "collection" depending on the type of pool
-   * @param {boolean} [is_locked] - optiona; true if locked, false if not
+   * @param {boolean} [is_locked] - optional; true if locked, false if not
    * @returns a JSON dictionary containing information about the pools, e.g. their ID, name, created_at, etc.
    */
   create = async ({
+    /**the name of the pool*/
     name,
+    /**the description text of the pool */
     description,
+    /**one of "series" or "collection" depending on the type of pool*/
     category,
+    /**true if locked, false if not*/
     is_locked,
   }: PoolsCreateArgs) => {
     if (!this.is_logged_in()) {
@@ -138,11 +152,17 @@ export class Pools extends Model {
    * @returns a JSON dictionary containing information about the pools, e.g. their ID, name, created_at, etc.
    */
   update = async ({
+    /**the ID of the pool to update */
     id,
+    /**the name of the pool*/
     name,
+    /**the description text of the pool */
     description,
+    /**an array of ID numbers of posts to include in the pool */
     post_ids,
+    /**true if the pool is active, false if not. */
     is_active,
+    /**one of "series" or "collection" depending on the type of pool */
     category,
   }: PoolsUpdateArgs) => {
     if (!this.is_logged_in()) {
@@ -181,7 +201,12 @@ export class Pools extends Model {
    * @param {number} id - the ID of the pool
    * @param {number} version_id - the version ID to which the pool should be reverted
    */
-  revert = async ({ id, version_id }: PoolsRevertArgs) => {
+  revert = async ({
+    /**the ID of the pool */
+    id,
+    /**the version ID to which the pool should be reverted */
+    version_id,
+  }: PoolsRevertArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must be logged in to revert a pool.");
     }

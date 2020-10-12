@@ -40,8 +40,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -113,7 +111,6 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_src_models_model_.model.html#generate_query_url" class="tsd-kind-icon">generate_<wbr>query_<wbr>url</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_models_model_.model.html#is_logged_in" class="tsd-kind-icon">is_<wbr>logged_<wbr>in</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_models_model_.model.html#submit_request" class="tsd-kind-icon">submit_<wbr>request</a></li>
 							</ul>
@@ -127,7 +124,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Model<span class="tsd-signature-symbol">(</span>stateInfo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_models_interfaces_.stateinfo.html" class="tsd-signature-type">StateInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_models_model_.model.html" class="tsd-signature-type">Model</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Model<span class="tsd-signature-symbol">(</span>stateInfo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">StateInfo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_models_model_.model.html" class="tsd-signature-type">Model</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -144,7 +141,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>stateInfo: <a href="../interfaces/_src_models_interfaces_.stateinfo.html" class="tsd-signature-type">StateInfo</a></h5>
+									<h5>stateInfo: <span class="tsd-signature-type">StateInfo</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Dictionary containing user-agent, rate limiter, and username/API key if logged in.</p>
@@ -162,7 +159,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="stateinfo" class="tsd-anchor"></a>
 					<h3>state<wbr>Info</h3>
-					<div class="tsd-signature tsd-kind-icon">state<wbr>Info<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_models_interfaces_.stateinfo.html" class="tsd-signature-type">StateInfo</a></div>
+					<div class="tsd-signature tsd-kind-icon">state<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StateInfo</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in src/models/model.ts:6</li>
@@ -172,44 +169,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="generate_query_url" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> generate_<wbr>query_<wbr>url</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">generate_<wbr>query_<wbr>url<span class="tsd-signature-symbol">(</span>query_args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/models/model.ts:68</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Produces an ampersand-delimited string of arguments for passing through to submit_request.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>query_args: <span class="tsd-signature-symbol">{}</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>A dictionary containing keys in the form of parameter names, and values representing their arguments.</p>
-										</div>
-									</div>
-									<ul class="tsd-parameters">
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<ul>
-								<li>An ampersand-delimited string of arguments for passing through to submit_request.</li>
-							</ul>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="is_logged_in" class="tsd-anchor"></a>
 					<h3>is_<wbr>logged_<wbr>in</h3>
@@ -237,7 +196,7 @@
 					<a name="submit_request" class="tsd-anchor"></a>
 					<h3>submit_<wbr>request</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">submit_<wbr>request<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><a href="../modules/_src_models_interfaces_.html#method" class="tsd-signature-type">Method</a><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">submit_<wbr>request<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Method</span><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AxiosResponse</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -254,10 +213,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><a href="../modules/_src_models_interfaces_.html#method" class="tsd-signature-type">Method</a><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Method</span><span class="tsd-signature-symbol">; </span>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span><span class="tsd-signature-symbol">; </span>query_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>method<span class="tsd-signature-symbol">: </span><a href="../modules/_src_models_interfaces_.html#method" class="tsd-signature-type">Method</a></h5>
+											<h5>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Method</span></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>multipart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span></h5>
@@ -283,8 +242,29 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_index_.html">&quot;src/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_argumenttypes_.html">&quot;src/models/argument<wbr>Types&quot;</a>
+					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_src_models_model_.html">&quot;src/models/model&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_notes_.html">&quot;src/models/notes&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_pools_.html">&quot;src/models/pools&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_posts_.html">&quot;src/models/posts&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_tagaliases_.html">&quot;src/models/tag<wbr>Aliases&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_src_models_tags_.html">&quot;src/models/tags&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -301,9 +281,6 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_src_models_model_.model.html#stateinfo" class="tsd-kind-icon">state<wbr>Info</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="_src_models_model_.model.html#generate_query_url" class="tsd-kind-icon">generate_<wbr>query_<wbr>url</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_models_model_.model.html#is_logged_in" class="tsd-kind-icon">is_<wbr>logged_<wbr>in</a>
 							</li>
@@ -319,7 +296,7 @@
 		</div>
 	</div>
 </div>
-<footer class="with-border-bottom">
+<footer>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
@@ -330,21 +307,11 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 		</div>
 	</div>
 </footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
 </body>

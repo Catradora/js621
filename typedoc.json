@@ -1,5 +1,10 @@
 {
-  "mode": "module",
-  "in": "src",
-  "out": "docs"
+  "mode": "modules",
+  "inputFiles": ["./src"],
+  "out": "docs",
+  "exclude": ["src/models/interfaces.ts", "src/test/*.ts", "src/trial.ts"],
+  "hideGenerator": "true",
+  "excludeNotExported": "true",
+  "excludePrivate": "true",
+  "excludeProtected": "true"
 }

@@ -37,16 +37,27 @@ export class Posts extends Model {
    * @returns a dictionary containing success if successful, failure if unsuccessful, among other information.
    */
   create = async ({
+    /**a list of strings representing the tags of the post */
     tag_string,
+    /**optional (if direct_url is provided); a stream of the image file */
     file,
+    /**optional (if direct_url is provided); the name of the image file, including extension. */
     filename,
+    /**one of 's', 'q', or 'e,' representing safe, questionable, and explicit, respectively. */
     rating,
+    /**optional (if file and filename are provided); the URL of the image to upload */
     direct_url,
+    /**the source text for the post */
     source,
+    /**the description text for the post */
     description,
+    /**the ID of this post's parent post */
     parent_id,
+    /**unclear in API documentation */
     referer_url,
+    /**the MD5 checksum of the file to be uploaded */
     md5_confirmation,
+    /**true if pending, false if not. */
     as_pending,
   }: PostCreateArgs) => {
     //Raise an error if not logged in
@@ -121,18 +132,31 @@ export class Posts extends Model {
    * @returns unknown; API documentation unclear
    */
   update = async ({
+    /**the description text of the post */
     description,
+    /**the reason for editing the post */
     edit_reason,
+    /**true if the post has notes embedded in it, false if not */
     has_embedded_notes,
+    /*true if notes cannot be submitted, false if they can* */
     is_note_locked,
+    /**true if the rating cannot be changed, false if it can */
     is_rating_locked,
+    /**the description of the post prior to being updated */
     old_description,
+    /**the ID of the post's parent, prior to being updated */
     old_parent_id,
+    /**one of 's', 'q', or 'e', representing safe, questionable, or explicit, respectively */
     old_rating,
+    /**the ID number of this post's parent post */
     parent_id,
+    /**the ID number of the post to update */
     post_id,
+    /**one of 's', 'q', or 'e', representing safe, questionable, or explicit, respectively */
     rating,
+    /**a list of strings representing changes to the post's sources */
     source_diff,
+    /**a list of strings representing changes to the post's tags */
     tag_string_diff,
   }: PostUpdateArgs) => {
     if (!this.is_logged_in()) {
@@ -200,10 +224,15 @@ export class Posts extends Model {
    * @returns a JSON array containing a list of posts, and information corresponding to those posts (e.g. ID, url, size, etc.)
    */
   list = async ({
+    /**the number of posts to return. All requests with a limit greater than 320 default to 320. */
     limit,
+    /**a list of tags to filter the post, as you would type into e621.net. (Note: tags like "order:score" work) */
     tags,
+    /**the page number of posts to return (if limit is 320, each 320 posts will flow onto another page). */
     page,
+    /**used to filter by post ID number. Whatever is provided for before_page will limit posts returned to post ID numbers lesser */
     before_page,
+    /**the inverse of before_page; lists posts with post ID's higher than the after_page provided. */
     after_page,
   }: PostListArgs) => {
     const query_args = {} as any;
@@ -242,8 +271,11 @@ export class Posts extends Model {
    * @param {string} [creator_name] - optional; the name of the flag's creator
    */
   list_flags = async ({
+    /**the ID of the post whose flags are to be returned */
     post_id,
+    /**the ID of the flag's creator */
     creator_id,
+    /**the name of the flag's creator */
     creator_name,
   }: PostListFlagsArgs) => {
     const query_args = {} as any;
@@ -271,8 +303,11 @@ export class Posts extends Model {
    * @param {number} [parent_id] - optional; the ID of the superior post, when flagging the post as inferior
    */
   create_flag = async ({
+    /**the ID of the post for which the flag is to be created */
     post_id,
+    /**the reason for creating the flag, e.g. "inferior" */
     reason_name,
+    /**the ID of the superior post, when flagging the post as inferior */
     parent_id,
   }: PostCreateFlagArgs) => {
     if (!this.is_logged_in()) {
@@ -301,7 +336,14 @@ export class Posts extends Model {
    * @param {boolean} [no_unvote] - optional; true has this score replace the old score (e.g. if previously downvoted, upvoting with no_unvote being false simply reverts the vote to 0)
    * @returns a json dictionary with information about the post's vote, e.g. the number of upvotes, downvotes, and the user's score.
    */
-  vote = async ({ post_id, score, no_unvote }: PostVoteArgs) => {
+  vote = async ({
+    /**the ID of the post on which to vote */
+    post_id,
+    /**1 to upvote, -1 to downvote */
+    score,
+    /**true has this score replace the old score (e.g. if previously downvoted, upvoting with no_unvote being false simply reverts the vote to 0) */
+    no_unvote,
+  }: PostVoteArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must provide both username and api_key to flag a post");
     }

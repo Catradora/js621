@@ -20,20 +20,31 @@ export class Tags extends Model {
    * @param {boolean} [has_wiki] - optional; whether the tag has a wiki (true), or not (false)
    * @param {boolean} [has_artist] - optional; whether there is an artist associated with the tag (true), or not (false)
    * @param {number} [limit] - optional; the number of tags to return. Requests of limit greater than 1,000 default to a maximum of 1,000.
+   * @param {number} [page] - optional; the page number. results get paginated based on the limit argument.
    * @param {number} [before_page] - optional; limits returned tags to ID numbers lesser than before_page
    * @param {number} [after_page] - optional; limits returned tags to ID numbers greater than after_page
    * @returns a JSON dictionary of tags, containing information thereabout (e.g. id, name, post_count, etc.)
    */
   list = async ({
+    /**a string against which to match the tags. Permits wildcards, e.g. "horse*" */
     name_matches,
+    /**the category to which the tag belongs: one of 'general', 'artist', 'copyright', 'character', 'species', 'meta', or 'lore' */
     category,
+    /**the order of tags returned: one of 'date', 'count', 'name.' */
     order,
+    /**whether to hide empty tags (true), or to show empty tags (false) */
     hide_empty,
+    /**whether the tag has a wiki (true), or not (false) */
     has_wiki,
+    /**whether there is an artist associated with the tag (true), or not (false) */
     has_artist,
+    /**the number of tags to return. Requests of limit greater than 1,000 default to a maximum of 1,000. */
     limit,
+    /**the page number. results get paginated based on the limit argument. */
     page,
+    /**limits returned tags to ID numbers lesser than before_page */
     before_page,
+    /**limits returned tags to ID numbers greater than after_page */
     after_page,
   }: TagListArgs) => {
     let query_args = {} as any;
