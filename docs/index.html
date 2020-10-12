@@ -1,0 +1,336 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>js621</title>
+	<meta name="description" content="Documentation for js621">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">js621</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>js621</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#js621" id="js621" style="color: inherit; text-decoration: none;">
+					<h1>JS621</h1>
+				</a>
+				<p>JS621 is a TypeScript wrapper for the <a href=https://www.e621.net/help/api>e621.net API</a>.</p>
+				<p>The purpose of this API wrapper is to provide a user-friendly means for getting and changing information stored on the e621.net server, e.g. downloading posts, uploading posts, creating pools, etc.</p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h1>Usage</h1>
+				</a>
+				<p>The API wrapper is designed to be easy-to-use.</p>
+				<p>Import the package, either from node_modules (after installing), or after cloning the repository.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;</code></pre>
+				<p>All API endpoints are accessed through a master <code>JS621</code> object. This object requires the presentation of a <code>user-agent</code>. Per the
+				<a href=https://www.e621.net/help/api>API documentation</a>, this user-agent must be <em>descriptive.</em> This means, in essence, it must provide a means to identify and contact you, should your use of the API cause issues for the e621.net site maintainers.</p>
+				<p>A good format to use (bearing in mind there is a limit to how long the user-agent string can be) is as follows:</p>
+				<p><code>username@website.com | ProjectName</code></p>
+				<p>The <a href=https://www.e621.net/help/api>API documentation</a> makes clear that users are <em>not</em> to imitate browser user-agents if using scripts to access the API, such behavior <em>will get you banned.</em></p>
+				<p>The master object is created as follows:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+
+<span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
+<span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);</code></pre>
+				<p>This wrapper provides access to the 5 main endpoints within the <a href=https://www.e621.net/help/api>e621.net API</a>:</p>
+				<ul>
+					<li>Posts</li>
+					<li>Pools</li>
+					<li>Tags</li>
+					<li>TagAliases</li>
+					<li>Notes</li>
+				</ul>
+				<p>The endpoints are represented by attributes on the master class. Thus, accessing each of their methods is accomplished in the following fashion:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+
+<span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
+<span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);
+
+<span class="hljs-comment">//Access the posts object</span>
+<span class="hljs-keyword">const</span> posts = wrapper.posts;
+
+<span class="hljs-comment">//Access the pools object</span>
+<span class="hljs-keyword">const</span> pools = wrapper.pools;
+
+<span class="hljs-comment">//Access the tags object</span>
+<span class="hljs-keyword">const</span> tags = wrapper.tags;
+
+<span class="hljs-comment">//Access the tagAliases object</span>
+<span class="hljs-keyword">const</span> tagAliases = wrapper.tagAliases;
+
+<span class="hljs-comment">//Access the notes object</span>
+<span class="hljs-keyword">const</span> notes = wrapper.notes;</code></pre>
+				<p>Each object provides its own set of endpoints. For example, the <code>posts</code> object provides access to the following endpoints:</p>
+				<ul>
+					<li>list</li>
+					<li>create</li>
+					<li>update</li>
+					<li>list_flags</li>
+					<li>create_flag</li>
+					<li>vote</li>
+				</ul>
+				<p>The behaviors of each are presented on the <a href=https://www.e621.net/help/api>e621.net API</a>.</p>
+				<p>For example, <code>list</code> provides a list of posts, based on search provided as an argument dictionary. It can be used as follows:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+
+<span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
+<span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);
+
+<span class="hljs-keyword">let</span> getPosts = <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> posts = wrapper.posts;
+  <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> posts.list({
+    tags: [<span class="hljs-string">&quot;horse&quot;</span>, <span class="hljs-string">&quot;rating:s&quot;</span>, <span class="hljs-string">&quot;order:score&quot;</span>],
+    limit: <span class="hljs-number">1</span>,
+  });
+
+  <span class="hljs-built_in">console</span>.log(result.data);
+};
+getPosts();</code></pre>
+				<p>The above code does the following:</p>
+				<ol>
+					<li>Creates a JS621 master object with a <em>descriptive</em> user-agent</li>
+					<li>Creates an <em>asynchronous</em> function, which gets a list of posts whose tags contain &#39;horse&#39; whose rating is safe, and orders it by score. It further <em>limits</em> the results to 1, so we only see one post.</li>
+					<li>Prints those results</li>
+				</ol>
+				<p>For those unfamiliar with JavaScript/TypeScript and Node.js in particular, the use of an <code>async</code> function may be confusing. This was an intentional design choice. All actions which interact with the e621.net API are <em>asynchronous,</em> which means they do not block execution of code while they themselves execute. This is generally done when making web requests since they are, in the context of computer operations, slow. For more information about promises, async/await, and asynchronous programming in JavaScript/TypeScript, check out <a href=https://medium.com/jspoint/javascript-promises-and-async-await-as-fast-as-possible-d7c8c8ff0abc>this article.</a>.</p>
+				<p>The main takeaway is that calls to the JS621 API wrapper must be handled in one of two ways. The first, and simpler of the two, is to wrap calls to the API in an <code>async</code> function, as shown in the above code fragment.</p>
+				<p>The second, and slightly more complicated method, is to handle it as a <code>Promise</code>. This obviates the need for an asynchronous function:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+
+<span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
+<span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);
+<span class="hljs-keyword">const</span> posts = wrapper.posts;
+
+<span class="hljs-comment">//Result is a *promise*</span>
+<span class="hljs-keyword">let</span> result = posts.list({
+  tags: [<span class="hljs-string">&quot;horse&quot;</span>, <span class="hljs-string">&quot;order:score&quot;</span>, <span class="hljs-string">&quot;rating:s&quot;</span>],
+  limit: <span class="hljs-number">1</span>,
+});
+
+<span class="hljs-comment">//.then lets us wait for the promise to *resolve*</span>
+result.then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(response.data);
+});
+
+<span class="hljs-comment">//.catch covers what happens if the promise doesn&#x27;t resolve</span>
+result.catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(err);
+});</code></pre>
+				<p>The purpose of wrapping these calls in asynchronous methods is to speed up execution. Each call needs not wait on the previous call&#39;s completion to begin its work. If one call takes a long time, several others can be completed while waiting on the first.</p>
+				<p>However, this would generally permit the code to submit requests at an extremely high rate. The <a href=https://www.e621.net/help/api>e621.net API</a> notes that there is a rate limit of 2 requests per second. They further note that hitting the rate limit of 2/second indicates you&#39;re actually <em>still</em> going too quickly, and should instead aim for 1 request/second.</p>
+				<p>As such, the JS621 API wrapper automatically limits all requests to the API to one per second asynchronously.</p>
+				<p>This is considered the maximum speed for accessing the <a href=https://www.e621.net/help/api>e621.net API</a>. Attempts to circumvent this limit will get your script throttled, and excessive misuse will result in your ip address being banned from e621.net.</p>
+				<p>So keep it safe, and just let the API wrapper keep you under 1/second.</p>
+				<p>Furthermore, there are two &quot;genres&quot; of requests which can be made on the e621.net API: those that simply read information, and those that manipulate information.</p>
+				<p>The simples example is with the <code>Posts</code> endpoint: you can <em>read information</em> (<code>Posts.list({})</code>), and you can <em>manipulate information</em> (<code>Posts.create({})</code>).</p>
+				<p>Requests that just read information do not require the user to be logged in. Note, however, that there are universal blacklists on the e621.net site, which require being logged-in to see when searching posts, etc. In order to get these results, you must be logged in <em>even for requests that just read information.</em></p>
+				<p>Requests that manipulate information <em>do</em> require the user to be logged in. Failure to login prior to performing these requests will automatically throw an Error without submitting a request to the server.</p>
+				<p>Logging in is accomplished through the JS621 master object, like so:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+
+<span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
+<span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);
+
+wrapper.login(<span class="hljs-string">&quot;username&quot;</span>, <span class="hljs-string">&quot;api_key&quot;</span>);
+
+wrapper.posts
+  .create({...})
+  .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(response.data);
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(err);
+  });</code></pre>
+				<p>When you finish with requests which require login, you are free to <code>logout</code> by calling the eponymous function within the master object.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+
+<span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
+<span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);
+
+wrapper.login(<span class="hljs-string">&quot;username&quot;</span>, <span class="hljs-string">&quot;api_key&quot;</span>);
+
+wrapper.posts
+  .create({...})
+  .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(response.data);
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(err);
+  });
+
+wrapper.logout();</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_index_.html">&quot;src/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_argumenttypes_.html">&quot;src/models/argument<wbr>Types&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_interfaces_.html">&quot;src/models/interfaces&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_model_.html">&quot;src/models/model&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_notes_.html">&quot;src/models/notes&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_pools_.html">&quot;src/models/pools&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_posts_.html">&quot;src/models/posts&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_tagaliases_.html">&quot;src/models/tag<wbr>Aliases&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_models_tags_.html">&quot;src/models/tags&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_model_test_.html">&quot;src/test/model.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_notes_notes_create_test_.html">&quot;src/test/notes/notes.create.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_notes_notes_delete_test_.html">&quot;src/test/notes/notes.delete.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_notes_notes_list_test_.html">&quot;src/test/notes/notes.list.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_notes_notes_revert_test_.html">&quot;src/test/notes/notes.revert.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_notes_notes_update_test_.html">&quot;src/test/notes/notes.update.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_pools_pools_create_test_.html">&quot;src/test/pools/pools.create.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_pools_pools_list_test_.html">&quot;src/test/pools/pools.list.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_pools_pools_revert_test_.html">&quot;src/test/pools/pools.revert.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_pools_pools_update_test_.html">&quot;src/test/pools/pools.update.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_posts_posts_create_test_.html">&quot;src/test/posts/posts.create.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_posts_posts_flag_test_.html">&quot;src/test/posts/posts.flag.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_posts_posts_list_test_.html">&quot;src/test/posts/posts.list.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_posts_posts_update_test_.html">&quot;src/test/posts/posts.update.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_posts_posts_vote_test_.html">&quot;src/test/posts/posts.vote.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_tagaliases_tagaliases_list_test_.html">&quot;src/test/tagaliases/tagaliases.list.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_test_tags_tags_list_test_.html">&quot;src/test/tags/tags.list.test&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_src_trial_.html">&quot;src/trial&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
