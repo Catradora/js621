@@ -18,13 +18,13 @@ export class Notes extends Model {
 
   /**
    * Gathers a list of notes, as filtered through parameters.
-   * @param {string} body_matches - A query string to match the note body against. Permits wildcards, e.g. "horse*"
-   * @param {number} post_id - The ID number of the post to which the note corresponds.
-   * @param {[string]} post_tags_match - A list of strings representing tags the note's corresponding post should match. Permits wildcards, e.g. "horse*"
-   * @param {string} creator_name - the username of the note's creator
-   * @param {number} creator_id - the ID number of the note's creator
-   * @param {boolean} is_active - true if the note is active, false if not
-   * @param {number} limit - the number of notes to return. limited to a maximum of 1,000; calls over 1,000 will simply return 1,000 results.
+   * @param {string} [body_matches] - optional; query string to match the note body against. Permits wildcards, e.g. "horse*"
+   * @param {number} [post_id] - optional; the ID number of the post to which the note corresponds.
+   * @param {[string]} [post_tags_match] - optional; a list of strings representing tags the note's corresponding post should match. Permits wildcards, e.g. "horse*"
+   * @param {string} [creator_name] - optional; the username of the note's creator
+   * @param {number} [creator_id] - optional; the ID number of the note's creator
+   * @param {boolean} [is_active] - optional; true if the note is active, false if not
+   * @param {number} [limit] - optional; the number of notes to return. limited to a maximum of 1,000; calls over 1,000 will simply return 1,000 results.
    * @returns a dictionary of information about the note, e.g. it's ID, created_at, updated_at, etc.
    */
   list = async ({
@@ -70,7 +70,7 @@ export class Notes extends Model {
   };
 
   /**
-   * Create a new note
+   * Create a new note. All arguments are required.
    * @param {number} post_id - the ID number of the post to which the note corresponds
    * @param {number} x - x coordinate of the note's top-left corner, as measured in pixels from the top left corner of the post
    * @param {number} y - y coordinate of the note's top-left corner, as measured in pixels from the top left corner of the post
