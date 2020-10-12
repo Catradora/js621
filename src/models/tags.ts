@@ -3,10 +3,27 @@ import { StateInfo } from "./interfaces";
 import { TagListArgs } from "./argumentTypes";
 
 export class Tags extends Model {
+  /**
+   * Calls to parent class constructor with state_info.
+   * @param stateInfo - A dictionary containing a user-agent, rate-limiter, and username/API key if logged in.
+   */
   constructor(stateInfo: StateInfo) {
     super(stateInfo);
   }
 
+  /**
+   * Produces a list of tags, filtered by parameters given
+   * @param {string} [name_matches] - optional; a string against which to match the tags. Permits wildcards, e.g. "horse*"
+   * @param {string} [category] - optional; the category to which the tag belongs: one of 'general', 'artist', 'copyright', 'character', 'species', 'meta', or 'lore'
+   * @param {string} [order] - optional; the order of tags returned: one of 'date', 'count', 'name.'
+   * @param {boolean} [hide_empty] - optional; whether to hide empty tags (true), or to show empty tags (false)
+   * @param {boolean} [has_wiki] - optional; whether the tag has a wiki (true), or not (false)
+   * @param {boolean} [has_artist] - optional; whether there is an artist associated with the tag (true), or not (false)
+   * @param {number} [limit] - optional; the number of tags to return. Requests of limit greater than 1,000 default to a maximum of 1,000.
+   * @param {number} [before_page] - optional; limits returned tags to ID numbers lesser than before_page
+   * @param {number} [after_page] - optional; limits returned tags to ID numbers greater than after_page
+   * @returns a JSON dictionary of tags, containing information thereabout (e.g. id, name, post_count, etc.)
+   */
   list = async ({
     name_matches,
     category,
