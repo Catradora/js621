@@ -1,9 +1,9 @@
-import { Posts } from "../../models/posts";
-import { StateInfo } from "../../models/interfaces";
+import { Posts } from "../../lib/models/posts";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 import FormData from "form-data";
 import * as fs from "fs";
-import { ModelRequestArgs } from "../../models/argumentTypes";
+import { ModelRequestArgs } from "../../lib/models/argumentTypes";
 
 jest.mock("axios"); //Prevent any calls to the wider net
 

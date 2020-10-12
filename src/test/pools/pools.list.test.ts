@@ -1,5 +1,5 @@
-import { Pools } from "../../models/pools";
-import { StateInfo } from "../../models/interfaces";
+import { Pools } from "../../lib/models/pools";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net

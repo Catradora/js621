@@ -1,5 +1,5 @@
-import { Notes } from "../../models/notes";
-import { StateInfo } from "../../models/interfaces";
+import { Notes } from "../../lib/models/notes";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net
@@ -27,54 +27,31 @@ describe("notes", () => {
     };
   });
 
-  it("should reject a call to update a note without logging in", async () => {
+  it("should reject calls to revert without logging in", async () => {
     //Arrange
     testNotes = new Notes(test_state_info);
 
     //Act
     try {
-      await testNotes.update({
-        note_id: 12345,
-        x: 1,
-        y: 2,
-        width: 100,
-        height: 200,
-        body: "test body",
-      });
+      await testNotes.revert({ note_id: 12345, version_id: 12345 });
     } catch (err) {
-      expect(err).toEqual(new Error("Must be logged in to update a note."));
+      expect(err).toEqual(new Error("Must be logged in to revert a note."));
     }
   });
 
-  it("should update a note with all arguments", async () => {
+  it("should revert a post given all arguments", async () => {
     //Arrange
     test_state_info.username = "test_username";
     test_state_info.api_key = "test_api_key";
     testNotes = new Notes(test_state_info);
     testNotes.submit_request = jest.fn();
 
-    const expected_calls = [
-      "note[x]=1",
-      "note[y]=2",
-      "note[width]=100",
-      "note[height]=200",
-      "note[body]=test body",
-    ].sort();
-    const expected_query_url = "notes/12345.json?" + expected_calls.join("&");
-
     //Act
-    await testNotes.update({
-      note_id: 12345,
-      x: 1,
-      y: 2,
-      width: 100,
-      height: 200,
-      body: "test body",
-    });
+    await testNotes.revert({ note_id: 12345, version_id: 12345 });
 
     //Assert
     expect(testNotes.submit_request).toHaveBeenCalledWith({
-      query_url: expected_query_url,
+      query_url: "notes/12345/revert.json?version_id=12345",
       method: "put",
     });
   });

@@ -1,5 +1,5 @@
-import { Notes } from "../../models/notes";
-import { StateInfo } from "../../models/interfaces";
+import { Notes } from "../../lib/models/notes";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net
@@ -27,19 +27,26 @@ describe("notes", () => {
     };
   });
 
-  it("should reject a call to delete without logging in", async () => {
+  it("should require login to create a note", async () => {
     //Arrange
     testNotes = new Notes(test_state_info);
 
     //Act
     try {
-      await testNotes.delete(12345);
+      await testNotes.create({
+        post_id: 12345,
+        x: 1,
+        y: 2,
+        width: 100,
+        height: 100,
+        body: "test body",
+      });
     } catch (err) {
-      expect(err).toEqual(new Error("Must be logged in to delete a note."));
+      expect(err).toEqual(new Error("Must be logged in to create a note."));
     }
   });
 
-  it("should delete a post given a post_id", async () => {
+  it("should require login to create a note", async () => {
     //Arrange
     test_state_info.username = "test_username";
     test_state_info.api_key = "test_api_key";
@@ -47,12 +54,19 @@ describe("notes", () => {
     testNotes.submit_request = jest.fn();
 
     //Act
-    testNotes.delete(12345);
+    await testNotes.create({
+      post_id: 12345,
+      x: 1,
+      y: 2,
+      width: 100,
+      height: 100,
+      body: "test body",
+    });
 
-    //Assert
     expect(testNotes.submit_request).toHaveBeenCalledWith({
-      query_url: "notes/12345.json?",
-      method: "delete",
+      query_url:
+        "notes.json?note[body]=test body&note[height]=100&note[post_id]=12345&note[width]=100&note[x]=1&note[y]=2",
+      method: "post",
     });
   });
 });

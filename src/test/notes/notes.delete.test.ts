@@ -1,5 +1,5 @@
-import { Notes } from "../../models/notes";
-import { StateInfo } from "../../models/interfaces";
+import { Notes } from "../../lib/models/notes";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net
@@ -27,19 +27,19 @@ describe("notes", () => {
     };
   });
 
-  it("should reject calls to revert without logging in", async () => {
+  it("should reject a call to delete without logging in", async () => {
     //Arrange
     testNotes = new Notes(test_state_info);
 
     //Act
     try {
-      await testNotes.revert({ note_id: 12345, version_id: 12345 });
+      await testNotes.delete(12345);
     } catch (err) {
-      expect(err).toEqual(new Error("Must be logged in to revert a note."));
+      expect(err).toEqual(new Error("Must be logged in to delete a note."));
     }
   });
 
-  it("should revert a post given all arguments", async () => {
+  it("should delete a post given a post_id", async () => {
     //Arrange
     test_state_info.username = "test_username";
     test_state_info.api_key = "test_api_key";
@@ -47,12 +47,12 @@ describe("notes", () => {
     testNotes.submit_request = jest.fn();
 
     //Act
-    await testNotes.revert({ note_id: 12345, version_id: 12345 });
+    testNotes.delete(12345);
 
     //Assert
     expect(testNotes.submit_request).toHaveBeenCalledWith({
-      query_url: "notes/12345/revert.json?version_id=12345",
-      method: "put",
+      query_url: "notes/12345.json?",
+      method: "delete",
     });
   });
 });
