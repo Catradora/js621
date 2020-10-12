@@ -22,6 +22,6 @@
     "baseUrl": ".",
     "types": ["node", "jest"]
   },
-  "exclude": ["node_modules", "./src/test/**"],
+  "exclude": ["node_modules", "./src/**/test/**"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }
