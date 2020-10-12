@@ -8,10 +8,25 @@ import {
 } from "./argumentTypes";
 
 export class Notes extends Model {
+  /**
+   * Calls to parent class constructor with state_info.
+   * @param stateInfo - A dictionary containing a user-agent, rate-limiter, and username/API key if logged in.
+   */
   constructor(stateInfo: StateInfo) {
     super(stateInfo);
   }
 
+  /**
+   * Gathers a list of notes, as filtered through parameters.
+   * @param {string} body_matches - A query string to match the note body against. Permits wildcards, e.g. "horse*"
+   * @param {number} post_id - The ID number of the post to which the note corresponds.
+   * @param {[string]} post_tags_match - A list of strings representing tags the note's corresponding post should match. Permits wildcards, e.g. "horse*"
+   * @param {string} creator_name - the username of the note's creator
+   * @param {number} creator_id - the ID number of the note's creator
+   * @param {boolean} is_active - true if the note is active, false if not
+   * @param {number} limit - the number of notes to return. limited to a maximum of 1,000; calls over 1,000 will simply return 1,000 results.
+   * @returns a dictionary of information about the note, e.g. it's ID, created_at, updated_at, etc.
+   */
   list = async ({
     body_matches,
     post_id,
@@ -47,13 +62,23 @@ export class Notes extends Model {
       query_args["search[post_id]"] = post_id!;
     }
     if (post_tags_match !== undefined) {
-      query_args["search[post_tags_match]"] = post_tags_match!;
+      query_args["search[post_tags_match]"] = post_tags_match!.join(" ");
     }
     query_url = "notes.json?" + this.generate_query_url(query_args);
 
     return this.submit_request({ query_url: query_url, method: "get" });
   };
 
+  /**
+   * Create a new note
+   * @param {number} post_id - the ID number of the post to which the note corresponds
+   * @param {number} x - x coordinate of the note's top-left corner, as measured in pixels from the top left corner of the post
+   * @param {number} y - y coordinate of the note's top-left corner, as measured in pixels from the top left corner of the post
+   * @param {number} width - the width of the note's box
+   * @param {number} height - the height of the note's box
+   * @param {string} body - the text body of the note
+   * @returns a dictionary of information about the note, e.g. it's ID, created_at, updated_at, etc.
+   */
   create = async ({ post_id, x, y, width, height, body }: NotesCreateArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must be logged in to create a note.");
@@ -73,6 +98,16 @@ export class Notes extends Model {
     return this.submit_request({ query_url: query_url, method: "post" });
   };
 
+  /**
+   * Updates given information about a note, given it's ID. All arguments are required.
+   * @param {number} note_id - the ID number of the note to update.
+   * @param {number} x - x coordinate of the note's top-left corner, as measured in pixels from the top left corner of the post
+   * @param {number} y - y coordinate of the note's top-left corner, as measured in pixels from the top left corner of the post
+   * @param {number} width - the width of the note's box
+   * @param {number} height - the height of the note's box
+   * @param {string} body - the text body of the note
+   * @returns a dictionary of information about the note, e.g. it's ID, created_at, updated_at, etc.
+   */
   update = async ({ note_id, x, y, width, height, body }: NotesUpdateArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must be logged in to update a note.");
@@ -90,6 +125,10 @@ export class Notes extends Model {
     return this.submit_request({ query_url: query_url, method: "put" });
   };
 
+  /**
+   * Given a note's ID, deletes the note.
+   * @param {number} note_id - the ID number of the note to delete.
+   */
   delete = async (note_id: number) => {
     if (!this.is_logged_in()) {
       throw new Error("Must be logged in to delete a note.");
@@ -100,6 +139,11 @@ export class Notes extends Model {
     });
   };
 
+  /**
+   * Given a note's version_id, reverts the note to the state of that version.
+   * @param {number} note_id - the ID number of the note
+   * @param {number} version_id - the version number of the note
+   */
   revert = async ({ note_id, version_id }: NotesRevertArgs) => {
     if (!this.is_logged_in()) {
       throw new Error("Must be logged in to revert a note.");

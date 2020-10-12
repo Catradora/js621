@@ -120,7 +120,7 @@ export interface TagAliasListArgs {
 export interface NotesListArgs {
   body_matches?: string;
   post_id?: number;
-  post_tags_match?: string;
+  post_tags_match?: string[];
   creator_name?: string;
   creator_id?: number;
   is_active?: boolean;

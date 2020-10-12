@@ -51,7 +51,7 @@ describe("notes", () => {
     await testNotes.list({
       body_matches: "horse*",
       post_id: 12345,
-      post_tags_match: "horse*",
+      post_tags_match: ["horse*", "tail"],
       creator_name: "creatorname",
       creator_id: 12345,
       is_active: true,
@@ -61,7 +61,7 @@ describe("notes", () => {
     const expected_args = [
       "search[body_matches]=horse*",
       "search[post_id]=12345",
-      "search[post_tags_match]=horse*",
+      "search[post_tags_match]=horse* tail",
       "search[creator_name]=creatorname",
       "search[creator_id]=12345",
       "search[is_active]=true",

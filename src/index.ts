@@ -3,7 +3,6 @@ import Bottleneck from "bottleneck";
 
 // typing helpers
 import { StateInfo } from "./models/interfaces";
-import { JS621ConstructorArgs } from "./models/argumentTypes";
 
 // models
 import { Notes } from "./models/notes";
