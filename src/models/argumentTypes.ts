@@ -149,3 +149,16 @@ export interface NotesRevertArgs {
   note_id: number;
   version_id: number;
 }
+
+export interface PoolsListArgs {
+  name_matches?: string;
+  id?: number;
+  description_matches?: string;
+  creator_name?: string;
+  creator_id?: number;
+  is_active?: boolean;
+  is_deleted?: boolean;
+  category?: "series" | "collection";
+  order?: "name" | "created_at" | "updated_at" | "post_count";
+  limit?: number;
+}
