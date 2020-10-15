@@ -4,6 +4,16 @@ JS621 is a TypeScript wrapper for the <a href=https://www.e621.net/help/api>e621
 
 The purpose of this API wrapper is to provide a user-friendly means for getting and changing information stored on the e621.net server, e.g. downloading posts, uploading posts, creating pools, etc.
 
+# Caveats
+
+This wrapper is complete insofar as it wraps each method of the e621.net API as specified on the website's API reference. However, due to the nature of the website, not all methods are possible to test. Namely, the methods which are unverified are those methods which change state on the website, e.g. creating posts, creating pools, etc.
+
+This is due to the fact that the website prevents users from deleting posts, i.e. if one were to fully test `Posts.create({})`, one would have to create a post on the website which they could not subsequently delete, which would require site moderator attention.
+
+As such, if problems arise and implementation details are incorrect, _please_ create an issue and explain the problem and a proposed solution. Without real users testing this API wrapper, it is impossible to verify it works as intended.
+
+Further, the API itself is still under development. As such, the endpoints are subject to change. This wrapper cannot be fully stable until development is finished on the API itself.
+
 # Usage
 
 The API wrapper is designed to be easy-to-use.
