@@ -1,6 +1,6 @@
 {
   "name": "js621",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript/Javascript wrapper for the e621.net API",
   "main": "index.js",
   "scripts": {
