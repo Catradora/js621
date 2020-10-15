@@ -3,6 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "declaration": true,
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
@@ -22,6 +23,6 @@
     "baseUrl": ".",
     "types": ["node", "jest"]
   },
-  "exclude": ["node_modules", "./src/**/test/**"],
+  "exclude": ["node_modules", "src/**/test/**"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }

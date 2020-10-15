@@ -1,5 +1,5 @@
-import { TagAliases } from "../../models/tagAliases";
-import { StateInfo } from "../../models/interfaces";
+import { TagAliases } from "../../lib/models/tagAliases";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net

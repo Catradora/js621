@@ -1,0 +1,9 @@
+tsconfig.json
+src
+docs
+coverage
+.vscode
+node_modules
+README.md
+typedoc.json
+yarn.lock

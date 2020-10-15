@@ -1,5 +1,5 @@
-import { Posts } from "../../models/posts";
-import { StateInfo } from "../../models/interfaces";
+import { Posts } from "../../lib/models/posts";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net

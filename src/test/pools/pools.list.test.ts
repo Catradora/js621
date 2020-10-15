@@ -1,5 +1,5 @@
-import { Pools } from "../../models/pools";
-import { StateInfo } from "../../models/interfaces";
+import { Pools } from "../../lib/models/pools";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net
@@ -39,7 +39,7 @@ describe("pools", () => {
 
     //Act
     await testPools.list({
-      name_matches: "horse*",
+      name_matches: "horse* tail",
       id: 12345,
       description_matches: "horse*",
       creator_name: "test_creator",
@@ -52,7 +52,7 @@ describe("pools", () => {
     });
 
     const expected_args: string[] = [
-      "search[name_matches]=horse*",
+      "search[name_matches]=horse* tail",
       "search[id]=12345",
       "search[description_matches]=horse*",
       "search[creator_name]=test_creator",

@@ -1,5 +1,5 @@
-import { Pools } from "../../models/pools";
-import { StateInfo } from "../../models/interfaces";
+import { Pools } from "../../lib/models/pools";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net
@@ -111,6 +111,32 @@ describe("pools", () => {
     const expected_query_args = [
       "pool[name]=test pool",
       "pool[description]=test description",
+    ].sort();
+    const expected_query_url: string =
+      "pools.json?" + expected_query_args.join("&");
+
+    //Assert
+    expect(testPools.submit_request).toHaveBeenCalledWith({
+      query_url: expected_query_url,
+      method: "post",
+    });
+  });
+
+  it("should default to a blank description if one isn't provided", async () => {
+    //Arrange
+    test_state_info.username = "test_username";
+    test_state_info.api_key = "test_api_key";
+    testPools = new Pools(test_state_info);
+    testPools.submit_request = jest.fn();
+
+    //Act
+    await testPools.create({
+      name: "test pool",
+    });
+
+    const expected_query_args = [
+      "pool[name]=test pool",
+      "pool[description]=",
     ].sort();
     const expected_query_url: string =
       "pools.json?" + expected_query_args.join("&");

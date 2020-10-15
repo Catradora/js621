@@ -1,5 +1,5 @@
-import { Notes } from "../../models/notes";
-import { StateInfo } from "../../models/interfaces";
+import { Notes } from "../../lib/models/notes";
+import { StateInfo } from "../../lib/models/interfaces";
 import Bottleneck from "bottleneck";
 
 jest.mock("axios"); //Prevent any calls to the wider net
