@@ -27,15 +27,10 @@
   },
   "homepage": "https://github.com/Catradora/js621#readme",
   "devDependencies": {
-    "@types/chai": "^4.2.12",
     "@types/jest": "^26.0.14",
-    "@types/mocha": "^8.0.3",
-    "chai": "^4.2.0",
     "jest": "^26.4.2",
-    "mocha": "^8.1.3",
     "nyc": "^15.1.0",
     "ts-jest": "^26.4.0",
-    "ts-mocha": "^7.0.0",
     "ts-node": "^9.0.0",
     "typedoc": "^0.19.2",
     "typescript": "^4.0.3"
