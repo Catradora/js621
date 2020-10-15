@@ -71,8 +71,18 @@
 					<h1>Usage</h1>
 				</a>
 				<p>The API wrapper is designed to be easy-to-use.</p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Find the documentation for this wrapper <a href="https://github.com/Catradora/js621/docs/index.html">here</a>.</p>
+				<a href="#importing" id="importing" style="color: inherit; text-decoration: none;">
+					<h2>Importing</h2>
+				</a>
 				<p>Import the package, either from node_modules (after installing), or after cloning the repository.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;</code></pre>
+				<a href="#instantiation" id="instantiation" style="color: inherit; text-decoration: none;">
+					<h2>Instantiation</h2>
+				</a>
 				<p>All API endpoints are accessed through a master <code>JS621</code> object. This object requires the presentation of a <code>user-agent</code>. Per the
 				<a href=https://www.e621.net/help/api>API documentation</a>, this user-agent must be <em>descriptive.</em> This means, in essence, it must provide a means to identify and contact you, should your use of the API cause issues for the e621.net site maintainers.</p>
 				<p>A good format to use (bearing in mind there is a limit to how long the user-agent string can be) is as follows:</p>
@@ -83,6 +93,9 @@
 
 <span class="hljs-keyword">const</span> user_agent: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>;
 <span class="hljs-keyword">const</span> wrapper = <span class="hljs-keyword">new</span> JS621(user_agent);</code></pre>
+				<a href="#endpoints" id="endpoints" style="color: inherit; text-decoration: none;">
+					<h2>Endpoints</h2>
+				</a>
 				<p>This wrapper provides access to the 5 main endpoints within the <a href=https://www.e621.net/help/api>e621.net API</a>:</p>
 				<ul>
 					<li>Posts</li>
@@ -111,6 +124,9 @@
 
 <span class="hljs-comment">//Access the notes object</span>
 <span class="hljs-keyword">const</span> notes = wrapper.notes;</code></pre>
+				<a href="#sub-endpoints" id="sub-endpoints" style="color: inherit; text-decoration: none;">
+					<h3>Sub-Endpoints</h3>
+				</a>
 				<p>Each object provides its own set of endpoints. For example, the <code>posts</code> object provides access to the following endpoints:</p>
 				<ul>
 					<li>list</li>
@@ -143,8 +159,14 @@ getPosts();</code></pre>
 					<li>Creates an <em>asynchronous</em> function, which gets a list of posts whose tags contain &#39;horse&#39; whose rating is safe, and orders it by score. It further <em>limits</em> the results to 1, so we only see one post.</li>
 					<li>Prints those results</li>
 				</ol>
-				<p>For those unfamiliar with JavaScript/TypeScript and Node.js in particular, the use of an <code>async</code> function may be confusing. This was an intentional design choice. All actions which interact with the e621.net API are <em>asynchronous,</em> which means they do not block execution of code while they themselves execute. This is generally done when making web requests since they are, in the context of computer operations, slow. For more information about promises, async/await, and asynchronous programming in JavaScript/TypeScript, check out <a href=https://medium.com/jspoint/javascript-promises-and-async-await-as-fast-as-possible-d7c8c8ff0abc>this article.</a>.</p>
+				<a href="#async" id="async" style="color: inherit; text-decoration: none;">
+					<h2>Async</h2>
+				</a>
+				<p>For those unfamiliar with JavaScript/TypeScript and Node.js in particular, the use of an <code>async</code> function may be confusing. The use of async programming was an intentional design choice. All actions which interact with the e621.net API are <em>asynchronous,</em> which means they do not block execution of code while they themselves execute. This is generally done when making web requests since they are, in the context of computer operations, slow. For more information about promises, async/await, and asynchronous programming in JavaScript/TypeScript, check out <a href=https://medium.com/jspoint/javascript-promises-and-async-await-as-fast-as-possible-d7c8c8ff0abc>this article.</a></p>
 				<p>The main takeaway is that calls to the JS621 API wrapper must be handled in one of two ways. The first, and simpler of the two, is to wrap calls to the API in an <code>async</code> function, as shown in the above code fragment.</p>
+				<a href="#promises" id="promises" style="color: inherit; text-decoration: none;">
+					<h3>Promises</h3>
+				</a>
 				<p>The second, and slightly more complicated method, is to handle it as a <code>Promise</code>. This obviates the need for an asynchronous function:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
 
@@ -159,8 +181,8 @@ getPosts();</code></pre>
 });
 
 <span class="hljs-comment">//.then lets us wait for the promise to *resolve*</span>
-result.then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(response.data);
+result.then(<span class="hljs-function">(<span class="hljs-params">resolution</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(resolution.data);
 });
 
 <span class="hljs-comment">//.catch covers what happens if the promise doesn&#x27;t resolve</span>
@@ -168,12 +190,18 @@ result.catch(<span class="hljs-function">(<span class="hljs-params">err</span>) 
   <span class="hljs-built_in">console</span>.log(err);
 });</code></pre>
 				<p>The purpose of wrapping these calls in asynchronous methods is to speed up execution. Each call needs not wait on the previous call&#39;s completion to begin its work. If one call takes a long time, several others can be completed while waiting on the first.</p>
+				<a href="#rate-limiting" id="rate-limiting" style="color: inherit; text-decoration: none;">
+					<h2>Rate-Limiting</h2>
+				</a>
 				<p>However, this would generally permit the code to submit requests at an extremely high rate. The <a href=https://www.e621.net/help/api>e621.net API</a> notes that there is a rate limit of 2 requests per second. They further note that hitting the rate limit of 2/second indicates you&#39;re actually <em>still</em> going too quickly, and should instead aim for 1 request/second.</p>
 				<p>As such, the JS621 API wrapper automatically limits all requests to the API to one per second asynchronously.</p>
 				<p>This is considered the maximum speed for accessing the <a href=https://www.e621.net/help/api>e621.net API</a>. Attempts to circumvent this limit will get your script throttled, and excessive misuse will result in your ip address being banned from e621.net.</p>
 				<p>So keep it safe, and just let the API wrapper keep you under 1/second.</p>
+				<a href="#authentication" id="authentication" style="color: inherit; text-decoration: none;">
+					<h2>Authentication</h2>
+				</a>
 				<p>Furthermore, there are two &quot;genres&quot; of requests which can be made on the e621.net API: those that simply read information, and those that manipulate information.</p>
-				<p>The simples example is with the <code>Posts</code> endpoint: you can <em>read information</em> (<code>Posts.list({})</code>), and you can <em>manipulate information</em> (<code>Posts.create({})</code>).</p>
+				<p>The simplest example is with the <code>Posts</code> endpoint: you can <em>read information</em> (<code>Posts.list({})</code>), and you can <em>manipulate information</em> (<code>Posts.create({})</code>).</p>
 				<p>Requests that just read information do not require the user to be logged in. Note, however, that there are universal blacklists on the e621.net site, which require being logged-in to see when searching posts, etc. In order to get these results, you must be logged in <em>even for requests that just read information.</em></p>
 				<p>Requests that manipulate information <em>do</em> require the user to be logged in. Failure to login prior to performing these requests will automatically throw an Error without submitting a request to the server.</p>
 				<p>Logging in is accomplished through the JS621 master object, like so:</p>
@@ -192,6 +220,9 @@ wrapper.posts
   .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(err);
   });</code></pre>
+				<a href="#logging-out" id="logging-out" style="color: inherit; text-decoration: none;">
+					<h2>Logging Out</h2>
+				</a>
 				<p>When you finish with requests which require login, you are free to <code>logout</code> by calling the eponymous function within the master object.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
 
@@ -210,6 +241,15 @@ wrapper.posts
   });
 
 wrapper.logout();</code></pre>
+				<a href="#general-tips" id="general-tips" style="color: inherit; text-decoration: none;">
+					<h2>General Tips</h2>
+				</a>
+				<a href="#traversing-many-objects" id="traversing-many-objects" style="color: inherit; text-decoration: none;">
+					<h3>Traversing many objects</h3>
+				</a>
+				<p>There are a few best practices to note when using the e621.net API. If you intend to traverse a large number of objects (posts, tags, etc.), rather than using the <code>page</code> parameter of <code>Posts.list()</code>, you should use the <code>before_page</code> and/or <code>after_page</code> parameters.</p>
+				<p>These parameters take ID numbers, limiting the results to those with an ID higher or lower than the given parameter.</p>
+				<p>Thus, to gather information about many posts, simply list your results, and then request <code>before_page</code> or <code>after_page</code> with the highest/lowest ID number returned by the previous request.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -218,88 +258,79 @@ wrapper.logout();</code></pre>
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_index_.html">&quot;src/index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_js621_.html">&quot;src/lib/js621&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_argumenttypes_.html">&quot;src/lib/models/argument<wbr>Types&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_interfaces_.html">&quot;src/lib/models/interfaces&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_model_.html">&quot;src/lib/models/model&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_notes_.html">&quot;src/lib/models/notes&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_pools_.html">&quot;src/lib/models/pools&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_posts_.html">&quot;src/lib/models/posts&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_tagaliases_.html">&quot;src/lib/models/tag<wbr>Aliases&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_lib_models_tags_.html">&quot;src/lib/models/tags&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_notes_notes_create_test_.html">&quot;src/test/notes/notes.create.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_notes_notes_delete_test_.html">&quot;src/test/notes/notes.delete.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_notes_notes_list_test_.html">&quot;src/test/notes/notes.list.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_notes_notes_revert_test_.html">&quot;src/test/notes/notes.revert.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_notes_notes_update_test_.html">&quot;src/test/notes/notes.update.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_pools_pools_create_test_.html">&quot;src/test/pools/pools.create.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_pools_pools_list_test_.html">&quot;src/test/pools/pools.list.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_pools_pools_revert_test_.html">&quot;src/test/pools/pools.revert.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_pools_pools_update_test_.html">&quot;src/test/pools/pools.update.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_posts_posts_create_test_.html">&quot;src/test/posts/posts.create.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_posts_posts_flag_test_.html">&quot;src/test/posts/posts.flag.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_posts_posts_list_test_.html">&quot;src/test/posts/posts.list.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_posts_posts_update_test_.html">&quot;src/test/posts/posts.update.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_posts_posts_vote_test_.html">&quot;src/test/posts/posts.vote.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_tagaliases_tagaliases_list_test_.html">&quot;src/test/tagaliases/tagaliases.list.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_src_test_tags_tags_list_test_.html">&quot;src/test/tags/tags.list.test&quot;</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/js621.html" class="tsd-kind-icon">JS621</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/notes.html" class="tsd-kind-icon">Notes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pools.html" class="tsd-kind-icon">Pools</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/posts.html" class="tsd-kind-icon">Posts</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/tagaliases.html" class="tsd-kind-icon">Tag<wbr>Aliases</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/tags.html" class="tsd-kind-icon">Tags</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/modelrequestargs.html" class="tsd-kind-icon">Model<wbr>Request<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/notescreateargs.html" class="tsd-kind-icon">Notes<wbr>Create<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/noteslistargs.html" class="tsd-kind-icon">Notes<wbr>List<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/notesrevertargs.html" class="tsd-kind-icon">Notes<wbr>Revert<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/notesupdateargs.html" class="tsd-kind-icon">Notes<wbr>Update<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/poolscreateargs.html" class="tsd-kind-icon">Pools<wbr>Create<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/poolslistargs.html" class="tsd-kind-icon">Pools<wbr>List<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/poolsrevertargs.html" class="tsd-kind-icon">Pools<wbr>Revert<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/poolsupdateargs.html" class="tsd-kind-icon">Pools<wbr>Update<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postcreateargs.html" class="tsd-kind-icon">Post<wbr>Create<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postcreateflagargs.html" class="tsd-kind-icon">Post<wbr>Create<wbr>Flag<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postlistargs.html" class="tsd-kind-icon">Post<wbr>List<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postlistflagsargs.html" class="tsd-kind-icon">Post<wbr>List<wbr>Flags<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postupdateargs.html" class="tsd-kind-icon">Post<wbr>Update<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postvoteargs.html" class="tsd-kind-icon">Post<wbr>Vote<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/tagaliaslistargs.html" class="tsd-kind-icon">Tag<wbr>Alias<wbr>List<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/taglistargs.html" class="tsd-kind-icon">Tag<wbr>List<wbr>Args</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -310,13 +341,16 @@ wrapper.logout();</code></pre>
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 		</div>
 	</div>

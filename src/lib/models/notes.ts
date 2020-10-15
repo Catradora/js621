@@ -95,7 +95,7 @@ export class Notes extends Model {
     y,
     /**the height of the note's box */
     width,
-    /** the height of the note's box*/
+    /** the width of the note's box*/
     height,
     /**the text body of the note */
     body,

@@ -138,7 +138,7 @@ export class Posts extends Model {
     edit_reason,
     /**true if the post has notes embedded in it, false if not */
     has_embedded_notes,
-    /*true if notes cannot be submitted, false if they can* */
+    /**true if notes cannot be submitted, false if they can */
     is_note_locked,
     /**true if the rating cannot be changed, false if it can */
     is_rating_locked,
