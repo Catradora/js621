@@ -10,7 +10,7 @@ The API wrapper is designed to be easy-to-use.
 
 ## Documentation
 
-Find the documentation for this wrapper <a href="https://github.com/Catradora/js621/docs/index.html">here</a>.
+Find the documentation for this wrapper <a href="https://catradora.github.io/js621/">here</a>.
 
 ## Importing
 
