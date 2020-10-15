@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/Catradora/js621/issues"
   },
-  "homepage": "https://github.com/Catradora/js621#readme",
+  "homepage": "https://catradora.github.io/js621/",
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "jest": "^26.4.2",
