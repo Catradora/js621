@@ -168,4 +168,21 @@ describe("model", () => {
     //Assert
     expect(testModel.is_logged_in()).toEqual(true);
   });
+
+  it("should download an image file as given by its URL", async () => {
+    //Arrange
+    mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
+
+    testModel = new Model(expected_state_info);
+    testModel.submit_request = jest.fn();
+
+    //Act
+    await testModel.download("https://www.website.com/file.ext");
+
+    //Assert
+    expect(testModel.submit_request).toHaveBeenCalledWith({
+      query_url: "file.ext",
+      method: "get",
+    });
+  });
 });
