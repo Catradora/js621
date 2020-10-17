@@ -60,6 +60,10 @@ export class Model {
     }
   };
 
+  public schedule_download = async (file_url: string) => {
+    return this.stateInfo.ratelimiter.schedule(() => axios({url: file_url, method: "get", responseType: "stream"}));
+  };
+
   /**
    * Produces an ampersand-delimited string of arguments for passing through to submit_request.
    * @param query_args - A dictionary containing keys in the form of parameter names, and values representing their arguments.

@@ -177,12 +177,9 @@ describe("model", () => {
     testModel.submit_request = jest.fn();
 
     //Act
-    await testModel.download("https://www.website.com/file.ext");
+    await testModel.schedule_download("https://www.website.com/file.ext");
 
     //Assert
-    expect(testModel.submit_request).toHaveBeenCalledWith({
-      query_url: "file.ext",
-      method: "get",
-    });
+    expect(axios.get).toHaveBeenCalledWith("https://www.website.com/file.ext");
   });
 });

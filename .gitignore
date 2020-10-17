@@ -1,7 +1,7 @@
 #Files
 skip.*
 skip2.*
-src/trial.ts
+src/trial.*
 
 
 #Directories
