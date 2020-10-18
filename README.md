@@ -223,6 +223,30 @@ wrapper.posts
 wrapper.logout();
 ```
 
+## Downloading
+
+A key use-case for this API wrapper is to download files directly from e621.net. While making these requests is relatively simple, given the need to rate-limit requests, it seemed a clear choice to bake a method for scheduling downloads directly into the API.
+
+To download a file, the following code pattern will work nicely. Keep in mind, however, that the API wrapper is simply returning a stream of the file's contents which can be handled as the end-user sees fit. What follows is just one such method.
+
+```typescript
+import { JS621 } from "js621";
+import fs from "fs";
+
+const wrapper: JS621 = new JS621("email@website.com | ProjectName");
+
+let fileWriter: WriteStream = fs.createWriteStream(
+  "path/to/images/TestFile.png"
+);
+
+wrapper.posts
+  .schedule_download(
+    "https://static1.e621.net/data/c0/fa/c0fa5293f1d1440c2d3f2c3e027d3c36.jpg"
+  )
+  .then((res) => res.data.pipe(fileWriter))
+  .catch((err) => console.log(err));
+```
+
 ## General Tips
 
 ### Traversing many objects

@@ -8,3 +8,4 @@ src/trial.*
 dist/
 .nyc_output/
 coverage/
+src/images/

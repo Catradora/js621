@@ -174,12 +174,11 @@ describe("model", () => {
     mocked(axios).mockResolvedValue(axiosResponse); //Mocking axios function rather than a method
 
     testModel = new Model(expected_state_info);
-    testModel.submit_request = jest.fn();
 
     //Act
     await testModel.schedule_download("https://www.website.com/file.ext");
 
     //Assert
-    expect(axios.get).toHaveBeenCalledWith("https://www.website.com/file.ext");
+    expect(axios).toHaveBeenCalledWith({url:"https://www.website.com/file.ext", method:"get", responseType: "stream"});
   });
 });

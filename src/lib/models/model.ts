@@ -60,6 +60,11 @@ export class Model {
     }
   };
 
+  /**
+   * Schedules a download request for a given file. Used to conveniently rate-limit requests for users.
+   * @param {string} file_url - a string of the url desired to download. Must be entire URL, e.g. "https://static.e621.net/etc..."
+   * @returns a stream object of the given url's contents, for consumption by the end-user as desired.
+   */
   public schedule_download = async (file_url: string) => {
     return this.stateInfo.ratelimiter.schedule(() => axios({url: file_url, method: "get", responseType: "stream"}));
   };

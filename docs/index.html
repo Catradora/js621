@@ -248,6 +248,26 @@ wrapper.posts
   });
 
 wrapper.logout();</code></pre>
+				<a href="#downloading" id="downloading" style="color: inherit; text-decoration: none;">
+					<h2>Downloading</h2>
+				</a>
+				<p>A key use-case for this API wrapper is to download files directly from e621.net. While making these requests is relatively simple, given the need to rate-limit requests, it seemed a clear choice to bake a method for scheduling downloads directly into the API.</p>
+				<p>To download a file, the following code pattern will work nicely. Keep in mind, however, that the API wrapper is simply returning a stream of the file&#39;s contents which can be handled as the end-user sees fit. What follows is just one such method.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { JS621 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;js621&quot;</span>;
+<span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;fs&quot;</span>;
+
+<span class="hljs-keyword">const</span> wrapper: JS621 = <span class="hljs-keyword">new</span> JS621(<span class="hljs-string">&quot;email@website.com | ProjectName&quot;</span>);
+
+<span class="hljs-keyword">let</span> fileWriter: WriteStream = fs.createWriteStream(
+  <span class="hljs-string">&quot;path/to/images/TestFile.png&quot;</span>
+);
+
+wrapper.posts
+  .schedule_download(
+    <span class="hljs-string">&quot;https://static1.e621.net/data/c0/fa/c0fa5293f1d1440c2d3f2c3e027d3c36.jpg&quot;</span>
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> res.data.pipe(fileWriter))
+  .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(err));</code></pre>
 				<a href="#general-tips" id="general-tips" style="color: inherit; text-decoration: none;">
 					<h2>General Tips</h2>
 				</a>
